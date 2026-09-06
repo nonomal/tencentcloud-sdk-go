@@ -15773,78 +15773,58 @@ type FullTextInfo struct {
 
 // Predefined struct for user
 type GetAlarmLogRequestParams struct {
-	// 要查询的执行详情的起始时间，Unix时间戳，单位ms。
+	// <p>要查询的执行详情的起始时间，Unix时间戳，单位ms。</p>
 	From *int64 `json:"From,omitnil,omitempty" name:"From"`
 
-	// 要查询的执行详情的结束时间，Unix时间戳，单位ms。
+	// <p>要查询的执行详情的结束时间，Unix时间戳，单位ms。</p>
 	To *int64 `json:"To,omitnil,omitempty" name:"To"`
 
-	// 查询过滤条件，例如：
-	// - 按告警策略ID查询：`alert_id:"alarm-0745ec00-e605-xxxx-b50b-54afe61fc971"`
-	//    - 通过[获取告警策略列表](https://cloud.tencent.com/document/api/614/56461)获取告警策略ID
-	// - 按监控对象ID查询：`monitored_object:"823d8bfa-76a7-xxxx-8399-8cda74d4009b" `
-	//   - 通过[获取告警策略列表](https://cloud.tencent.com/document/api/614/56461)获取监控对象ID
-	// - 按告警策略ID及监控对象ID查询：`alert_id:"alarm-0745ec00-e605-xxxx-b50b-54afe61fc971" AND monitored_object:"823d8bfa-76a7-xxxx-8399-8cda74d4009b"`
-	// - 按告警策略ID及监控对象ID查询支持SQL语句：`(alert_id:"alarm-5ce45495-09e8-4d58-xxxx-768134bf330c") AND (monitored_object:"3c514e84-6f1f-46ec-xxxx-05de6163f7fe") AND NOT condition_evaluate_result: "Skip" AND condition_evaluate_result:[* TO *] | SELECT count(*) as top50StatisticsTotalCount, count_if(condition_evaluate_result='ProcessError') as top50StatisticsFailureCount, count_if(notification_send_result!='NotSend') as top50NoticeTotalCount, count_if(notification_send_result='SendPartFail' or notification_send_result='SendFail') as top50NoticeFailureCount, alert_id, alert_name, monitored_object, topic_type, happen_threshold, alert_threshold, notify_template group by alert_id, alert_name, monitored_object,topic_type, happen_threshold, alert_threshold, notify_template order by top50StatisticsTotalCount desc limit 1`
+	// <p>查询过滤条件，例如：</p><ul><li>按告警策略ID查询：<code>alert_id:&quot;alarm-0745ec00-e605-xxxx-b50b-54afe61fc971&quot;</code><ul><li>通过<a href="https://cloud.tencent.com/document/api/614/56461">获取告警策略列表</a>获取告警策略ID</li></ul></li><li>按监控对象ID查询：<code>monitored_object:&quot;823d8bfa-76a7-xxxx-8399-8cda74d4009b&quot;</code><ul><li>通过<a href="https://cloud.tencent.com/document/api/614/56461">获取告警策略列表</a>获取监控对象ID</li></ul></li><li>按告警策略ID及监控对象ID查询：<code>alert_id:&quot;alarm-0745ec00-e605-xxxx-b50b-54afe61fc971&quot; AND monitored_object:&quot;823d8bfa-76a7-xxxx-8399-8cda74d4009b&quot;</code></li><li>按告警策略ID及监控对象ID查询支持SQL语句：<code>(alert_id:&quot;alarm-5ce45495-0918-4d58-xxxx-768134bf330c&quot;) AND (monitored_object:&quot;3c514e84-6f1f-46ec-xxxx-05de6163f7fe&quot;) AND NOT condition_evaluate_result: &quot;Skip&quot; AND condition_evaluate_result:[* TO *] | SELECT count(*) as top50StatisticsTotalCount, count_if(condition_evaluate_result=&#39;ProcessError&#39;) as top50StatisticsFailureCount, count_if(notification_send_result!=&#39;NotSend&#39;) as top50NoticeTotalCount, count_if(notification_send_result=&#39;SendPartFail&#39; or notification_send_result=&#39;SendFail&#39;) as top50NoticeFailureCount, alert_id, alert_name, monitored_object, topic_type, happen_threshold, alert_threshold, notify_template group by alert_id, alert_name, monitored_object,topic_type, happen_threshold, alert_threshold, notify_template order by top50StatisticsTotalCount desc limit 1</code></li></ul><p>该查询语句走Lucene语法（已废弃）</p>
+	//
+	// Deprecated: Query is deprecated.
 	Query *string `json:"Query,omitnil,omitempty" name:"Query"`
 
-	// 单次查询返回的执行详情条数，最大值为1000
+	// <p>查询过滤条件，例如：- 按告警策略ID查询：<code>alert_id:&quot;alarm-0745ec00-e605-xxxx-b50b-54afe61fc971&quot;</code>   - 通过<a href="https://cloud.tencent.com/document/api/614/56461">获取告警策略列表</a>获取告警策略ID- 按监控对象ID查询：<code>monitored_object:&quot;823d8bfa-76a7-xxxx-8399-8cda74d4009b&quot;</code>  - 通过<a href="https://cloud.tencent.com/document/api/614/56461">获取告警策略列表</a>获取监控对象ID- 按告警策略ID及监控对象ID查询：<code>alert_id:&quot;alarm-0745ec00-e605-xxxx-b50b-54afe61fc971&quot; AND monitored_object:&quot;823d8bfa-76a7-xxxx-8399-8cda74d4009b&quot;</code>- 按告警策略ID及监控对象ID查询支持SQL语句：<code>(alert_id:&quot;alarm-5ce45495-0918-4d58-xxxx-768134bf330c&quot;) AND (monitored_object:&quot;3c514e84-6f1f-46ec-xxxx-05de6163f7fe&quot;) AND NOT condition_evaluate_result: &quot;Skip&quot; AND condition_evaluate_result:[* TO *] | SELECT count(*) as top50StatisticsTotalCount, count_if(condition_evaluate_result=&#39;ProcessError&#39;) as top50StatisticsFailureCount, count_if(notification_send_result!=&#39;NotSend&#39;) as top50NoticeTotalCount, count_if(notification_send_result=&#39;SendPartFail&#39; or notification_send_result=&#39;SendFail&#39;) as top50NoticeFailureCount, alert_id, alert_name, monitored_object, topic_type, happen_threshold, alert_threshold, notify_template group by alert_id, alert_name, monitored_object,topic_type, happen_threshold, alert_threshold, notify_template order by top50StatisticsTotalCount desc limit 1</code></p><p>该查询语句走CQL语法</p>
+	QueryString *string `json:"QueryString,omitnil,omitempty" name:"QueryString"`
+
+	// <p>单次查询返回的执行详情条数，最大值为1000</p>
 	Limit *int64 `json:"Limit,omitnil,omitempty" name:"Limit"`
 
-	// 透传上次接口返回的Context值，可获取后续更多日志，总计最多可获取1万条原始日志，过期时间1小时。
-	// 注意：
-	// * 透传该参数时，请勿修改除该参数外的其它参数
-	// * 仅当检索分析语句(Query)不包含SQL时有效，SQL获取后续结果参考<a href="https://cloud.tencent.com/document/product/614/58977" target="_blank">SQL LIMIT语法</a>
+	// <p>透传上次接口返回的Context值，可获取后续更多日志，总计最多可获取1万条原始日志，过期时间1小时。<br>注意：</p><ul><li>透传该参数时，请勿修改除该参数外的其它参数</li><li>仅当检索分析语句(Query)不包含SQL时有效，SQL获取后续结果参考<a href="https://cloud.tencent.com/document/product/614/58977" target="_blank">SQL LIMIT语法</a></li></ul>
 	Context *string `json:"Context,omitnil,omitempty" name:"Context"`
 
-	// 原始日志是否按时间排序返回；可选值：asc(升序)、desc(降序)，默认为 desc
-	// 注意：
-	// * 仅当检索分析语句(Query)不包含SQL时有效
-	// * SQL结果排序方式参考<a href="https://cloud.tencent.com/document/product/614/58978" target="_blank">SQL ORDER BY语法</a>
+	// <p>原始日志是否按时间排序返回；可选值：asc(升序)、desc(降序)，默认为 desc<br>注意：</p><ul><li>仅当检索分析语句(Query)不包含SQL时有效</li><li>SQL结果排序方式参考<a href="https://cloud.tencent.com/document/product/614/58978" target="_blank">SQL ORDER BY语法</a></li></ul>
 	Sort *string `json:"Sort,omitnil,omitempty" name:"Sort"`
 
-	// true：代表使用新的检索结果返回方式，输出参数AnalysisRecords和Columns有效；
-	// false：代表使用老的检索结果返回方式，输出AnalysisResults和ColNames有效；
-	// 两种返回方式在编码格式上有少量区别，建议使用true。
+	// <p>true：代表使用新的检索结果返回方式，输出参数AnalysisRecords和Columns有效；<br>false：代表使用老的检索结果返回方式，输出AnalysisResults和ColNames有效；<br>两种返回方式在编码格式上有少量区别，建议使用true。</p>
 	UseNewAnalysis *bool `json:"UseNewAnalysis,omitnil,omitempty" name:"UseNewAnalysis"`
 }
 
 type GetAlarmLogRequest struct {
 	*tchttp.BaseRequest
 	
-	// 要查询的执行详情的起始时间，Unix时间戳，单位ms。
+	// <p>要查询的执行详情的起始时间，Unix时间戳，单位ms。</p>
 	From *int64 `json:"From,omitnil,omitempty" name:"From"`
 
-	// 要查询的执行详情的结束时间，Unix时间戳，单位ms。
+	// <p>要查询的执行详情的结束时间，Unix时间戳，单位ms。</p>
 	To *int64 `json:"To,omitnil,omitempty" name:"To"`
 
-	// 查询过滤条件，例如：
-	// - 按告警策略ID查询：`alert_id:"alarm-0745ec00-e605-xxxx-b50b-54afe61fc971"`
-	//    - 通过[获取告警策略列表](https://cloud.tencent.com/document/api/614/56461)获取告警策略ID
-	// - 按监控对象ID查询：`monitored_object:"823d8bfa-76a7-xxxx-8399-8cda74d4009b" `
-	//   - 通过[获取告警策略列表](https://cloud.tencent.com/document/api/614/56461)获取监控对象ID
-	// - 按告警策略ID及监控对象ID查询：`alert_id:"alarm-0745ec00-e605-xxxx-b50b-54afe61fc971" AND monitored_object:"823d8bfa-76a7-xxxx-8399-8cda74d4009b"`
-	// - 按告警策略ID及监控对象ID查询支持SQL语句：`(alert_id:"alarm-5ce45495-09e8-4d58-xxxx-768134bf330c") AND (monitored_object:"3c514e84-6f1f-46ec-xxxx-05de6163f7fe") AND NOT condition_evaluate_result: "Skip" AND condition_evaluate_result:[* TO *] | SELECT count(*) as top50StatisticsTotalCount, count_if(condition_evaluate_result='ProcessError') as top50StatisticsFailureCount, count_if(notification_send_result!='NotSend') as top50NoticeTotalCount, count_if(notification_send_result='SendPartFail' or notification_send_result='SendFail') as top50NoticeFailureCount, alert_id, alert_name, monitored_object, topic_type, happen_threshold, alert_threshold, notify_template group by alert_id, alert_name, monitored_object,topic_type, happen_threshold, alert_threshold, notify_template order by top50StatisticsTotalCount desc limit 1`
+	// <p>查询过滤条件，例如：</p><ul><li>按告警策略ID查询：<code>alert_id:&quot;alarm-0745ec00-e605-xxxx-b50b-54afe61fc971&quot;</code><ul><li>通过<a href="https://cloud.tencent.com/document/api/614/56461">获取告警策略列表</a>获取告警策略ID</li></ul></li><li>按监控对象ID查询：<code>monitored_object:&quot;823d8bfa-76a7-xxxx-8399-8cda74d4009b&quot;</code><ul><li>通过<a href="https://cloud.tencent.com/document/api/614/56461">获取告警策略列表</a>获取监控对象ID</li></ul></li><li>按告警策略ID及监控对象ID查询：<code>alert_id:&quot;alarm-0745ec00-e605-xxxx-b50b-54afe61fc971&quot; AND monitored_object:&quot;823d8bfa-76a7-xxxx-8399-8cda74d4009b&quot;</code></li><li>按告警策略ID及监控对象ID查询支持SQL语句：<code>(alert_id:&quot;alarm-5ce45495-0918-4d58-xxxx-768134bf330c&quot;) AND (monitored_object:&quot;3c514e84-6f1f-46ec-xxxx-05de6163f7fe&quot;) AND NOT condition_evaluate_result: &quot;Skip&quot; AND condition_evaluate_result:[* TO *] | SELECT count(*) as top50StatisticsTotalCount, count_if(condition_evaluate_result=&#39;ProcessError&#39;) as top50StatisticsFailureCount, count_if(notification_send_result!=&#39;NotSend&#39;) as top50NoticeTotalCount, count_if(notification_send_result=&#39;SendPartFail&#39; or notification_send_result=&#39;SendFail&#39;) as top50NoticeFailureCount, alert_id, alert_name, monitored_object, topic_type, happen_threshold, alert_threshold, notify_template group by alert_id, alert_name, monitored_object,topic_type, happen_threshold, alert_threshold, notify_template order by top50StatisticsTotalCount desc limit 1</code></li></ul><p>该查询语句走Lucene语法（已废弃）</p>
 	Query *string `json:"Query,omitnil,omitempty" name:"Query"`
 
-	// 单次查询返回的执行详情条数，最大值为1000
+	// <p>查询过滤条件，例如：- 按告警策略ID查询：<code>alert_id:&quot;alarm-0745ec00-e605-xxxx-b50b-54afe61fc971&quot;</code>   - 通过<a href="https://cloud.tencent.com/document/api/614/56461">获取告警策略列表</a>获取告警策略ID- 按监控对象ID查询：<code>monitored_object:&quot;823d8bfa-76a7-xxxx-8399-8cda74d4009b&quot;</code>  - 通过<a href="https://cloud.tencent.com/document/api/614/56461">获取告警策略列表</a>获取监控对象ID- 按告警策略ID及监控对象ID查询：<code>alert_id:&quot;alarm-0745ec00-e605-xxxx-b50b-54afe61fc971&quot; AND monitored_object:&quot;823d8bfa-76a7-xxxx-8399-8cda74d4009b&quot;</code>- 按告警策略ID及监控对象ID查询支持SQL语句：<code>(alert_id:&quot;alarm-5ce45495-0918-4d58-xxxx-768134bf330c&quot;) AND (monitored_object:&quot;3c514e84-6f1f-46ec-xxxx-05de6163f7fe&quot;) AND NOT condition_evaluate_result: &quot;Skip&quot; AND condition_evaluate_result:[* TO *] | SELECT count(*) as top50StatisticsTotalCount, count_if(condition_evaluate_result=&#39;ProcessError&#39;) as top50StatisticsFailureCount, count_if(notification_send_result!=&#39;NotSend&#39;) as top50NoticeTotalCount, count_if(notification_send_result=&#39;SendPartFail&#39; or notification_send_result=&#39;SendFail&#39;) as top50NoticeFailureCount, alert_id, alert_name, monitored_object, topic_type, happen_threshold, alert_threshold, notify_template group by alert_id, alert_name, monitored_object,topic_type, happen_threshold, alert_threshold, notify_template order by top50StatisticsTotalCount desc limit 1</code></p><p>该查询语句走CQL语法</p>
+	QueryString *string `json:"QueryString,omitnil,omitempty" name:"QueryString"`
+
+	// <p>单次查询返回的执行详情条数，最大值为1000</p>
 	Limit *int64 `json:"Limit,omitnil,omitempty" name:"Limit"`
 
-	// 透传上次接口返回的Context值，可获取后续更多日志，总计最多可获取1万条原始日志，过期时间1小时。
-	// 注意：
-	// * 透传该参数时，请勿修改除该参数外的其它参数
-	// * 仅当检索分析语句(Query)不包含SQL时有效，SQL获取后续结果参考<a href="https://cloud.tencent.com/document/product/614/58977" target="_blank">SQL LIMIT语法</a>
+	// <p>透传上次接口返回的Context值，可获取后续更多日志，总计最多可获取1万条原始日志，过期时间1小时。<br>注意：</p><ul><li>透传该参数时，请勿修改除该参数外的其它参数</li><li>仅当检索分析语句(Query)不包含SQL时有效，SQL获取后续结果参考<a href="https://cloud.tencent.com/document/product/614/58977" target="_blank">SQL LIMIT语法</a></li></ul>
 	Context *string `json:"Context,omitnil,omitempty" name:"Context"`
 
-	// 原始日志是否按时间排序返回；可选值：asc(升序)、desc(降序)，默认为 desc
-	// 注意：
-	// * 仅当检索分析语句(Query)不包含SQL时有效
-	// * SQL结果排序方式参考<a href="https://cloud.tencent.com/document/product/614/58978" target="_blank">SQL ORDER BY语法</a>
+	// <p>原始日志是否按时间排序返回；可选值：asc(升序)、desc(降序)，默认为 desc<br>注意：</p><ul><li>仅当检索分析语句(Query)不包含SQL时有效</li><li>SQL结果排序方式参考<a href="https://cloud.tencent.com/document/product/614/58978" target="_blank">SQL ORDER BY语法</a></li></ul>
 	Sort *string `json:"Sort,omitnil,omitempty" name:"Sort"`
 
-	// true：代表使用新的检索结果返回方式，输出参数AnalysisRecords和Columns有效；
-	// false：代表使用老的检索结果返回方式，输出AnalysisResults和ColNames有效；
-	// 两种返回方式在编码格式上有少量区别，建议使用true。
+	// <p>true：代表使用新的检索结果返回方式，输出参数AnalysisRecords和Columns有效；<br>false：代表使用老的检索结果返回方式，输出AnalysisResults和ColNames有效；<br>两种返回方式在编码格式上有少量区别，建议使用true。</p>
 	UseNewAnalysis *bool `json:"UseNewAnalysis,omitnil,omitempty" name:"UseNewAnalysis"`
 }
 
@@ -15863,6 +15843,7 @@ func (r *GetAlarmLogRequest) FromJsonString(s string) error {
 	delete(f, "From")
 	delete(f, "To")
 	delete(f, "Query")
+	delete(f, "QueryString")
 	delete(f, "Limit")
 	delete(f, "Context")
 	delete(f, "Sort")
@@ -15875,36 +15856,32 @@ func (r *GetAlarmLogRequest) FromJsonString(s string) error {
 
 // Predefined struct for user
 type GetAlarmLogResponseParams struct {
-	// 加载后续详情的Context
+	// <p>加载后续详情的Context</p>
 	Context *string `json:"Context,omitnil,omitempty" name:"Context"`
 
-	// 指定时间范围内的告警执行详情是否完整返回
+	// <p>指定时间范围内的告警执行详情是否完整返回</p>
 	ListOver *bool `json:"ListOver,omitnil,omitempty" name:"ListOver"`
 
-	// 返回的结果是否为SQL分析结果
+	// <p>返回的结果是否为SQL分析结果</p>
 	Analysis *bool `json:"Analysis,omitnil,omitempty" name:"Analysis"`
 
-	// 分析结果的列名，如果Query语句有SQL查询，则返回查询字段的列名；
-	// 否则为空。
+	// <p>分析结果的列名，如果Query语句有SQL查询，则返回查询字段的列名；<br>否则为空。</p>
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	ColNames []*string `json:"ColNames,omitnil,omitempty" name:"ColNames"`
 
-	// 执行详情查询结果。
-	// 当Query字段无SQL语句时，返回查询结果。
-	// 当Query字段有SQL语句时，可能返回null。
+	// <p>执行详情查询结果。<br>当Query字段无SQL语句时，返回查询结果。<br>当Query字段有SQL语句时，可能返回null。</p>
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	Results []*LogInfo `json:"Results,omitnil,omitempty" name:"Results"`
 
-	// 执行详情统计分析结果。当Query字段有SQL语句时，返回SQL统计结果，否则可能返回null。
-	// 
+	// <p>执行详情统计分析结果。当Query字段有SQL语句时，返回SQL统计结果，否则可能返回null。</p>
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	AnalysisResults []*LogItems `json:"AnalysisResults,omitnil,omitempty" name:"AnalysisResults"`
 
-	// 执行详情统计分析结果；UseNewAnalysis为true有效。
+	// <p>执行详情统计分析结果；UseNewAnalysis为true有效。</p>
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	AnalysisRecords []*string `json:"AnalysisRecords,omitnil,omitempty" name:"AnalysisRecords"`
 
-	// 分析结果的列名， UseNewAnalysis为true有效
+	// <p>分析结果的列名， UseNewAnalysis为true有效</p>
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	Columns []*Column `json:"Columns,omitnil,omitempty" name:"Columns"`
 

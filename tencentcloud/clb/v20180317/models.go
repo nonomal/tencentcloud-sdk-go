@@ -2899,6 +2899,12 @@ type CreateModelRequestParams struct {
 
 	// <p>健康检查配置</p>
 	HealthCheckConfigs []*ServiceProviderHealthCheckConfigItemInput `json:"HealthCheckConfigs,omitnil,omitempty" name:"HealthCheckConfigs"`
+
+	// <p>模型输出模态</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
+
+	// <p>请求后缀</p>
+	EndpointPath *string `json:"EndpointPath,omitnil,omitempty" name:"EndpointPath"`
 }
 
 type CreateModelRequest struct {
@@ -2954,6 +2960,12 @@ type CreateModelRequest struct {
 
 	// <p>健康检查配置</p>
 	HealthCheckConfigs []*ServiceProviderHealthCheckConfigItemInput `json:"HealthCheckConfigs,omitnil,omitempty" name:"HealthCheckConfigs"`
+
+	// <p>模型输出模态</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
+
+	// <p>请求后缀</p>
+	EndpointPath *string `json:"EndpointPath,omitnil,omitempty" name:"EndpointPath"`
 }
 
 func (r *CreateModelRequest) ToJsonString() string {
@@ -2985,6 +2997,8 @@ func (r *CreateModelRequest) FromJsonString(s string) error {
 	delete(f, "HealthCheckConfig")
 	delete(f, "CMRPrivateNetworkTunnelId")
 	delete(f, "HealthCheckConfigs")
+	delete(f, "Capability")
+	delete(f, "EndpointPath")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "CreateModelRequest has unknown keys!", "")
 	}
@@ -3071,6 +3085,9 @@ type CreateModelRouterRequestParams struct {
 
 	// <p>单位</p><p>取值范围：[1, 2048]</p><p>单位：Mbps</p>
 	Bandwidth *uint64 `json:"Bandwidth,omitnil,omitempty" name:"Bandwidth"`
+
+	// <p>Embedding 配置</p>
+	EmbeddingConfig *EmbeddingConfig `json:"EmbeddingConfig,omitnil,omitempty" name:"EmbeddingConfig"`
 }
 
 type CreateModelRouterRequest struct {
@@ -3126,6 +3143,9 @@ type CreateModelRouterRequest struct {
 
 	// <p>单位</p><p>取值范围：[1, 2048]</p><p>单位：Mbps</p>
 	Bandwidth *uint64 `json:"Bandwidth,omitnil,omitempty" name:"Bandwidth"`
+
+	// <p>Embedding 配置</p>
+	EmbeddingConfig *EmbeddingConfig `json:"EmbeddingConfig,omitnil,omitempty" name:"EmbeddingConfig"`
 }
 
 func (r *CreateModelRouterRequest) ToJsonString() string {
@@ -3157,6 +3177,7 @@ func (r *CreateModelRouterRequest) FromJsonString(s string) error {
 	delete(f, "ClientToken")
 	delete(f, "EipAddressId")
 	delete(f, "Bandwidth")
+	delete(f, "EmbeddingConfig")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "CreateModelRouterRequest has unknown keys!", "")
 	}
@@ -7363,6 +7384,9 @@ type DescribeModelAssociationsRequestParams struct {
 
 	// <p>翻页偏移量</p><p>默认值：0</p>
 	Offset *uint64 `json:"Offset,omitnil,omitempty" name:"Offset"`
+
+	// <p>模型输出模态</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
 }
 
 type DescribeModelAssociationsRequest struct {
@@ -7376,6 +7400,9 @@ type DescribeModelAssociationsRequest struct {
 
 	// <p>翻页偏移量</p><p>默认值：0</p>
 	Offset *uint64 `json:"Offset,omitnil,omitempty" name:"Offset"`
+
+	// <p>模型输出模态</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
 }
 
 func (r *DescribeModelAssociationsRequest) ToJsonString() string {
@@ -7393,6 +7420,7 @@ func (r *DescribeModelAssociationsRequest) FromJsonString(s string) error {
 	delete(f, "ModelRouterId")
 	delete(f, "Limit")
 	delete(f, "Offset")
+	delete(f, "Capability")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "DescribeModelAssociationsRequest has unknown keys!", "")
 	}
@@ -9642,6 +9670,20 @@ func (r *DisassociateTargetGroupsResponse) FromJsonString(s string) error {
 	return json.Unmarshal([]byte(s), &r)
 }
 
+type EmbeddingConfig struct {
+	// <p>模型内路由策略</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RoutingStrategy *string `json:"RoutingStrategy,omitnil,omitempty" name:"RoutingStrategy"`
+
+	// <p>路由参数</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RoutingStrategyArgs *RoutingStrategyArgs `json:"RoutingStrategyArgs,omitnil,omitempty" name:"RoutingStrategyArgs"`
+
+	// <p>同一模型请求重试次数</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NumRetries *uint64 `json:"NumRetries,omitnil,omitempty" name:"NumRetries"`
+}
+
 type ExclusiveCluster struct {
 	// 4层独占集群列表
 	// 注意：此字段可能返回 null，表示取不到有效值。
@@ -11214,7 +11256,7 @@ type ModalityProbeDetail struct {
 }
 
 type ModelAlias struct {
-	// <p>模型积分系数配置，包含 <code>InputCoefficient</code>、<code>InputCachedCoefficient</code> 和 <code>OutputCoefficient</code>。</p><p>未配置时输入系数默认为 25，缓存命中输入系数默认为 3，输出系数默认为 100。</p>
+	// <p>模型积分系数配置，包含 <code>InputCoefficient</code> 和 <code>OutputCoefficient</code>。</p><p>未配置时输入系数和输出系数均返回 1。</p>
 	Coefficient *Coefficient `json:"Coefficient,omitnil,omitempty" name:"Coefficient"`
 
 	// <p>模型别名名称。</p><p>若用户配置了模型别名，则为该别名；未配置时为原始模型名称。</p>
@@ -11228,6 +11270,9 @@ type ModelAlias struct {
 
 	// <p>状态</p><p>枚举值：</p><ul><li>Active： 正常可用</li><li>Configuring： 变配中</li><li>ConfigureFailed： 变配失败</li></ul>
 	Status *string `json:"Status,omitnil,omitempty" name:"Status"`
+
+	// <p>模型能力</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
 }
 
 type ModelAssociation struct {
@@ -11242,6 +11287,9 @@ type ModelAssociation struct {
 
 	// <p>模型类型</p>
 	Type *string `json:"Type,omitnil,omitempty" name:"Type"`
+
+	// <p>输出模态</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
 }
 
 type ModelAvailability struct {
@@ -11352,6 +11400,14 @@ type ModelKeyInfoItem struct {
 
 	// <p>健康检查配置</p>
 	HealthCheckConfigs []*ServiceProviderHealthCheckConfigItemOutput `json:"HealthCheckConfigs,omitnil,omitempty" name:"HealthCheckConfigs"`
+
+	// <p>模型输出模态</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
+
+	// <p>请求后缀</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	EndpointPath *string `json:"EndpointPath,omitnil,omitempty" name:"EndpointPath"`
 }
 
 type ModelNameAggregatedItem struct {
@@ -11469,6 +11525,9 @@ type ModelRouterDetail struct {
 
 	// <p>计费信息</p>
 	BillingConfig *ModelRouterBillingConfigOutput `json:"BillingConfig,omitnil,omitempty" name:"BillingConfig"`
+
+	// <p>Embedding配置</p>
+	EmbeddingConfig *EmbeddingConfig `json:"EmbeddingConfig,omitnil,omitempty" name:"EmbeddingConfig"`
 }
 
 type ModelRouterLog struct {
@@ -13010,27 +13069,33 @@ func (r *ModifyLoadBalancersProjectResponse) FromJsonString(s string) error {
 
 // Predefined struct for user
 type ModifyModelAliasAttributesRequestParams struct {
-	// <p>模型积分系数配置。</p><p>必填，至少包含 <code>InputCoefficient</code>、<code>InputCachedCoefficient</code>、<code>OutputCoefficient</code> 中的一个字段，未传字段保持原值。</p><p><code>InputCoefficient</code> 为非缓存命中输入积分系数。</p><p><code>InputCachedCoefficient</code> 为缓存命中输入积分系数，用于 provider prompt cache 命中的输入 token。</p><p><code>OutputCoefficient</code> 为输出积分系数。</p><p>各字段取值范围：[0, 5000]，仅支持整数，0 表示该类 token 不计积分。</p>
+	// <p>模型积分系数配置。</p><p>必填，包含 <code>InputCoefficient</code> 和 <code>OutputCoefficient</code>。</p><p><code>InputCoefficient</code> 为输入积分系数。</p><p><code>OutputCoefficient</code> 为输出积分系数。</p><p>取值范围：[1, 200]，最多支持 1 位小数。</p>
 	Coefficient *Coefficient `json:"Coefficient,omitnil,omitempty" name:"Coefficient"`
 
-	// <p>模型别名列表。</p><p>不传 <code>ServiceProviderIds</code>（按 ModelAlias 账号维度修改）时支持数组批量，同一份 Coefficient 应用到多个别名。</p><p>传入 <code>ServiceProviderIds</code>（按 ServiceProvider 维度修改）时只能传 1 个别名，锁定唯一 model 别名；去重后不等于 1 个将返回 InvalidParameter。</p>
+	// <p>模型别名</p>
 	ModelAliasNames []*string `json:"ModelAliasNames,omitnil,omitempty" name:"ModelAliasNames"`
 
 	// <p>BYOK 实例（ServiceProvider）ID 列表。</p><p>可选，数组。传入时按 ServiceProvider 维度修改：把同一份 Coefficient 批量应用到数组内每一个实例（覆盖配置，仅作用于这些实例），此时 <code>ModelAliasNames</code> 只能传 1 个别名（即 1 别名 × N ServiceProvider）；数组需去重、非空、上限 100，任一实例不归属/不存在/该实例下无该别名将整批返回错误。不传时按 ModelAlias（账号）维度修改，作用于该别名下未单独配置覆盖的全部实例。</p>
 	ServiceProviderIds []*string `json:"ServiceProviderIds,omitnil,omitempty" name:"ServiceProviderIds"`
+
+	// <p>模型能力</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
 }
 
 type ModifyModelAliasAttributesRequest struct {
 	*tchttp.BaseRequest
 	
-	// <p>模型积分系数配置。</p><p>必填，至少包含 <code>InputCoefficient</code>、<code>InputCachedCoefficient</code>、<code>OutputCoefficient</code> 中的一个字段，未传字段保持原值。</p><p><code>InputCoefficient</code> 为非缓存命中输入积分系数。</p><p><code>InputCachedCoefficient</code> 为缓存命中输入积分系数，用于 provider prompt cache 命中的输入 token。</p><p><code>OutputCoefficient</code> 为输出积分系数。</p><p>各字段取值范围：[0, 5000]，仅支持整数，0 表示该类 token 不计积分。</p>
+	// <p>模型积分系数配置。</p><p>必填，包含 <code>InputCoefficient</code> 和 <code>OutputCoefficient</code>。</p><p><code>InputCoefficient</code> 为输入积分系数。</p><p><code>OutputCoefficient</code> 为输出积分系数。</p><p>取值范围：[1, 200]，最多支持 1 位小数。</p>
 	Coefficient *Coefficient `json:"Coefficient,omitnil,omitempty" name:"Coefficient"`
 
-	// <p>模型别名列表。</p><p>不传 <code>ServiceProviderIds</code>（按 ModelAlias 账号维度修改）时支持数组批量，同一份 Coefficient 应用到多个别名。</p><p>传入 <code>ServiceProviderIds</code>（按 ServiceProvider 维度修改）时只能传 1 个别名，锁定唯一 model 别名；去重后不等于 1 个将返回 InvalidParameter。</p>
+	// <p>模型别名</p>
 	ModelAliasNames []*string `json:"ModelAliasNames,omitnil,omitempty" name:"ModelAliasNames"`
 
 	// <p>BYOK 实例（ServiceProvider）ID 列表。</p><p>可选，数组。传入时按 ServiceProvider 维度修改：把同一份 Coefficient 批量应用到数组内每一个实例（覆盖配置，仅作用于这些实例），此时 <code>ModelAliasNames</code> 只能传 1 个别名（即 1 别名 × N ServiceProvider）；数组需去重、非空、上限 100，任一实例不归属/不存在/该实例下无该别名将整批返回错误。不传时按 ModelAlias（账号）维度修改，作用于该别名下未单独配置覆盖的全部实例。</p>
 	ServiceProviderIds []*string `json:"ServiceProviderIds,omitnil,omitempty" name:"ServiceProviderIds"`
+
+	// <p>模型能力</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
 }
 
 func (r *ModifyModelAliasAttributesRequest) ToJsonString() string {
@@ -13048,6 +13113,7 @@ func (r *ModifyModelAliasAttributesRequest) FromJsonString(s string) error {
 	delete(f, "Coefficient")
 	delete(f, "ModelAliasNames")
 	delete(f, "ServiceProviderIds")
+	delete(f, "Capability")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "ModifyModelAliasAttributesRequest has unknown keys!", "")
 	}
@@ -13086,6 +13152,12 @@ type ModifyModelAttributesRequestParams struct {
 
 	// <p>多协议 Api Base URL</p>
 	ApiBases []*ApiBaseItem `json:"ApiBases,omitnil,omitempty" name:"ApiBases"`
+
+	// <p>非chat输出模态的Api Base URL</p>
+	ApiBase *string `json:"ApiBase,omitnil,omitempty" name:"ApiBase"`
+
+	// <p>非chat输出模态的请求后缀</p>
+	EndpointPath *string `json:"EndpointPath,omitnil,omitempty" name:"EndpointPath"`
 }
 
 type ModifyModelAttributesRequest struct {
@@ -13099,6 +13171,12 @@ type ModifyModelAttributesRequest struct {
 
 	// <p>多协议 Api Base URL</p>
 	ApiBases []*ApiBaseItem `json:"ApiBases,omitnil,omitempty" name:"ApiBases"`
+
+	// <p>非chat输出模态的Api Base URL</p>
+	ApiBase *string `json:"ApiBase,omitnil,omitempty" name:"ApiBase"`
+
+	// <p>非chat输出模态的请求后缀</p>
+	EndpointPath *string `json:"EndpointPath,omitnil,omitempty" name:"EndpointPath"`
 }
 
 func (r *ModifyModelAttributesRequest) ToJsonString() string {
@@ -13116,6 +13194,8 @@ func (r *ModifyModelAttributesRequest) FromJsonString(s string) error {
 	delete(f, "ServiceProviderId")
 	delete(f, "ServiceProviderName")
 	delete(f, "ApiBases")
+	delete(f, "ApiBase")
+	delete(f, "EndpointPath")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "ModifyModelAttributesRequest has unknown keys!", "")
 	}
@@ -13163,6 +13243,12 @@ type ModifyModelRouterAttributesRequestParams struct {
 
 	// <p>带宽</p><p>取值范围：[1, 2048]</p><p>单位：Mbps</p>
 	Bandwidth *uint64 `json:"Bandwidth,omitnil,omitempty" name:"Bandwidth"`
+
+	// <p>模型输出模态</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
+
+	// <p>embedding 模态配置</p>
+	EmbeddingConfig *EmbeddingConfig `json:"EmbeddingConfig,omitnil,omitempty" name:"EmbeddingConfig"`
 }
 
 type ModifyModelRouterAttributesRequest struct {
@@ -13185,6 +13271,12 @@ type ModifyModelRouterAttributesRequest struct {
 
 	// <p>带宽</p><p>取值范围：[1, 2048]</p><p>单位：Mbps</p>
 	Bandwidth *uint64 `json:"Bandwidth,omitnil,omitempty" name:"Bandwidth"`
+
+	// <p>模型输出模态</p>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
+
+	// <p>embedding 模态配置</p>
+	EmbeddingConfig *EmbeddingConfig `json:"EmbeddingConfig,omitnil,omitempty" name:"EmbeddingConfig"`
 }
 
 func (r *ModifyModelRouterAttributesRequest) ToJsonString() string {
@@ -13205,6 +13297,8 @@ func (r *ModifyModelRouterAttributesRequest) FromJsonString(s string) error {
 	delete(f, "RateLimitConfig")
 	delete(f, "RouterSetting")
 	delete(f, "Bandwidth")
+	delete(f, "Capability")
+	delete(f, "EmbeddingConfig")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "ModifyModelRouterAttributesRequest has unknown keys!", "")
 	}
@@ -16325,6 +16419,9 @@ type TestServiceProviderConnectionRequestParams struct {
 
 	// <p>    CMR 私网管道ID </p>
 	CMRPrivateNetworkTunnelId *string `json:"CMRPrivateNetworkTunnelId,omitnil,omitempty" name:"CMRPrivateNetworkTunnelId"`
+
+	// <p>对应模型的能力</p><p>枚举值：</p><ul><li>chat： 生文能力</li><li>embedding： 向量能力</li></ul>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
 }
 
 type TestServiceProviderConnectionRequest struct {
@@ -16365,6 +16462,9 @@ type TestServiceProviderConnectionRequest struct {
 
 	// <p>    CMR 私网管道ID </p>
 	CMRPrivateNetworkTunnelId *string `json:"CMRPrivateNetworkTunnelId,omitnil,omitempty" name:"CMRPrivateNetworkTunnelId"`
+
+	// <p>对应模型的能力</p><p>枚举值：</p><ul><li>chat： 生文能力</li><li>embedding： 向量能力</li></ul>
+	Capability *string `json:"Capability,omitnil,omitempty" name:"Capability"`
 }
 
 func (r *TestServiceProviderConnectionRequest) ToJsonString() string {
@@ -16391,6 +16491,7 @@ func (r *TestServiceProviderConnectionRequest) FromJsonString(s string) error {
 	delete(f, "VerifySSL")
 	delete(f, "HealthCheckProtocol")
 	delete(f, "CMRPrivateNetworkTunnelId")
+	delete(f, "Capability")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "TestServiceProviderConnectionRequest has unknown keys!", "")
 	}

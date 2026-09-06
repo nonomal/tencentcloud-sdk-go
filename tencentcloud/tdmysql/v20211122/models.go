@@ -1706,6 +1706,57 @@ func (r *DeleteUsersResponse) FromJsonString(s string) error {
 }
 
 // Predefined struct for user
+type DescribeDBCharsetsRequestParams struct {
+
+}
+
+type DescribeDBCharsetsRequest struct {
+	*tchttp.BaseRequest
+	
+}
+
+func (r *DescribeDBCharsetsRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeDBCharsetsRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "DescribeDBCharsetsRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DescribeDBCharsetsResponseParams struct {
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type DescribeDBCharsetsResponse struct {
+	*tchttp.BaseResponse
+	Response *DescribeDBCharsetsResponseParams `json:"Response"`
+}
+
+func (r *DescribeDBCharsetsResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeDBCharsetsResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
 type DescribeDBEnginesRequestParams struct {
 
 }
@@ -3115,6 +3166,129 @@ func (r *DescribeFlowResponse) FromJsonString(s string) error {
 }
 
 // Predefined struct for user
+type DescribeFlowTypesRequestParams struct {
+
+}
+
+type DescribeFlowTypesRequest struct {
+	*tchttp.BaseRequest
+	
+}
+
+func (r *DescribeFlowTypesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeFlowTypesRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "DescribeFlowTypesRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DescribeFlowTypesResponseParams struct {
+	// <p>任务类型信息，供前端下拉筛选使用</p>
+	FlowTypes []*FlowType `json:"FlowTypes,omitnil,omitempty" name:"FlowTypes"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type DescribeFlowTypesResponse struct {
+	*tchttp.BaseResponse
+	Response *DescribeFlowTypesResponseParams `json:"Response"`
+}
+
+func (r *DescribeFlowTypesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeFlowTypesResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DescribeInstanceDataReservedSpaceRequestParams struct {
+	// <p>实例ID</p>
+	InstanceId *string `json:"InstanceId,omitnil,omitempty" name:"InstanceId"`
+}
+
+type DescribeInstanceDataReservedSpaceRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>实例ID</p>
+	InstanceId *string `json:"InstanceId,omitnil,omitempty" name:"InstanceId"`
+}
+
+func (r *DescribeInstanceDataReservedSpaceRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeInstanceDataReservedSpaceRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "InstanceId")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "DescribeInstanceDataReservedSpaceRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DescribeInstanceDataReservedSpaceResponseParams struct {
+	// <p>实际保留比例（%，单节点）</p>
+	ReservedRate *float64 `json:"ReservedRate,omitnil,omitempty" name:"ReservedRate"`
+
+	// <p>实际保留空间 GB（单节点）</p><p>单位：GB</p>
+	ReservedSpaceGB *float64 `json:"ReservedSpaceGB,omitnil,omitempty" name:"ReservedSpaceGB"`
+
+	// <p>用户可用空间 GB（单节点）</p><p>单位：GB</p>
+	UsableSpaceGB *float64 `json:"UsableSpaceGB,omitnil,omitempty" name:"UsableSpaceGB"`
+
+	// <p>true=旧版本（&lt;21.6.4.0），值取自老参数 tdstore_enter_readonly_threshold；false=新版本</p>
+	IsLegacy *bool `json:"IsLegacy,omitnil,omitempty" name:"IsLegacy"`
+
+	// <p>内核版本号</p>
+	KernelVersion *string `json:"KernelVersion,omitnil,omitempty" name:"KernelVersion"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type DescribeInstanceDataReservedSpaceResponse struct {
+	*tchttp.BaseResponse
+	Response *DescribeInstanceDataReservedSpaceResponseParams `json:"Response"`
+}
+
+func (r *DescribeInstanceDataReservedSpaceResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeInstanceDataReservedSpaceResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
 type DescribeInstanceSSLStatusRequestParams struct {
 	// <p>实例ID</p>
 	InstanceId *string `json:"InstanceId,omitnil,omitempty" name:"InstanceId"`
@@ -3972,6 +4146,16 @@ type Explain struct {
 	// <p>附加信息，如 Using index、Using filesort 等</p>
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	Extra *string `json:"Extra,omitnil,omitempty" name:"Extra"`
+}
+
+type FlowType struct {
+	// <p>任务类型名称，后续可以对 DescribeFlows 出参中的 FlowName 进行筛选</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	FlowName *string `json:"FlowName,omitnil,omitempty" name:"FlowName"`
+
+	// <p>任务类型中文描述</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	FlowDesc *string `json:"FlowDesc,omitnil,omitempty" name:"FlowDesc"`
 }
 
 type InstanceFilter struct {
@@ -4860,6 +5044,70 @@ func (r *ModifyDBSBackupSetCommentResponse) FromJsonString(s string) error {
 }
 
 // Predefined struct for user
+type ModifyInstanceDataReservedSpaceRequestParams struct {
+	// <p>实例ID</p>
+	InstanceId *string `json:"InstanceId,omitnil,omitempty" name:"InstanceId"`
+
+	// <p>拟修改的目标保留空间大小</p><p>单位：GB</p>
+	ReservedSpaceGB *float64 `json:"ReservedSpaceGB,omitnil,omitempty" name:"ReservedSpaceGB"`
+}
+
+type ModifyInstanceDataReservedSpaceRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>实例ID</p>
+	InstanceId *string `json:"InstanceId,omitnil,omitempty" name:"InstanceId"`
+
+	// <p>拟修改的目标保留空间大小</p><p>单位：GB</p>
+	ReservedSpaceGB *float64 `json:"ReservedSpaceGB,omitnil,omitempty" name:"ReservedSpaceGB"`
+}
+
+func (r *ModifyInstanceDataReservedSpaceRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ModifyInstanceDataReservedSpaceRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "InstanceId")
+	delete(f, "ReservedSpaceGB")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "ModifyInstanceDataReservedSpaceRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type ModifyInstanceDataReservedSpaceResponseParams struct {
+	// <p>参数下发 flow 任务 ID（复用 ModifyDBParameters 链路，异步 flow 但秒级生效）</p>
+	TaskId *int64 `json:"TaskId,omitnil,omitempty" name:"TaskId"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type ModifyInstanceDataReservedSpaceResponse struct {
+	*tchttp.BaseResponse
+	Response *ModifyInstanceDataReservedSpaceResponseParams `json:"Response"`
+}
+
+func (r *ModifyInstanceDataReservedSpaceResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ModifyInstanceDataReservedSpaceResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
 type ModifyInstanceNameRequestParams struct {
 	// 需要修改的实例id
 	InstanceId *string `json:"InstanceId,omitnil,omitempty" name:"InstanceId"`
@@ -5305,6 +5553,60 @@ type ParamDesc struct {
 	// 参数描述
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	Description *string `json:"Description,omitnil,omitempty" name:"Description"`
+}
+
+// Predefined struct for user
+type ResetDbaAdminPrivilegesRequestParams struct {
+	// <p>实例id</p>
+	InstanceId *string `json:"InstanceId,omitnil,omitempty" name:"InstanceId"`
+}
+
+type ResetDbaAdminPrivilegesRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>实例id</p>
+	InstanceId *string `json:"InstanceId,omitnil,omitempty" name:"InstanceId"`
+}
+
+func (r *ResetDbaAdminPrivilegesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ResetDbaAdminPrivilegesRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "InstanceId")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "ResetDbaAdminPrivilegesRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type ResetDbaAdminPrivilegesResponseParams struct {
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type ResetDbaAdminPrivilegesResponse struct {
+	*tchttp.BaseResponse
+	Response *ResetDbaAdminPrivilegesResponseParams `json:"Response"`
+}
+
+func (r *ResetDbaAdminPrivilegesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ResetDbaAdminPrivilegesResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
 }
 
 type ResetUserPasswordInfo struct {

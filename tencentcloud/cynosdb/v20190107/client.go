@@ -3840,7 +3840,10 @@ func NewDescribeAuditInstanceListResponse() (response *DescribeAuditInstanceList
 // 本接口（DescribeAuditInstanceList）用于获取数据库审计的实例列表。
 //
 // 可能返回的错误码:
+//  AUTHFAILURE_UNAUTHORIZEDOPERATION = "AuthFailure.UnauthorizedOperation"
 //  INTERNALERROR_HTTPERROR = "InternalError.HttpError"
+//  OPERATIONDENIED_ACCOUNTOPERATIONDENIED = "OperationDenied.AccountOperationDenied"
+//  OPERATIONDENIED_RESOURCENOTFUNDERROR = "OperationDenied.ResourceNotFundError"
 func (c *Client) DescribeAuditInstanceList(request *DescribeAuditInstanceListRequest) (response *DescribeAuditInstanceListResponse, err error) {
     return c.DescribeAuditInstanceListWithContext(context.Background(), request)
 }
@@ -3849,7 +3852,10 @@ func (c *Client) DescribeAuditInstanceList(request *DescribeAuditInstanceListReq
 // 本接口（DescribeAuditInstanceList）用于获取数据库审计的实例列表。
 //
 // 可能返回的错误码:
+//  AUTHFAILURE_UNAUTHORIZEDOPERATION = "AuthFailure.UnauthorizedOperation"
 //  INTERNALERROR_HTTPERROR = "InternalError.HttpError"
+//  OPERATIONDENIED_ACCOUNTOPERATIONDENIED = "OperationDenied.AccountOperationDenied"
+//  OPERATIONDENIED_RESOURCENOTFUNDERROR = "OperationDenied.ResourceNotFundError"
 func (c *Client) DescribeAuditInstanceListWithContext(ctx context.Context, request *DescribeAuditInstanceListRequest) (response *DescribeAuditInstanceListResponse, err error) {
     if request == nil {
         request = NewDescribeAuditInstanceListRequest()

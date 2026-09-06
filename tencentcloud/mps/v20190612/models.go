@@ -2704,6 +2704,14 @@ type AigcTaskListItem struct {
 	// <p>任务请求包</p>
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	RequestBody *string `json:"RequestBody,omitnil,omitempty" name:"RequestBody"`
+
+	// <p>任务其他信息</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TaskInfo *string `json:"TaskInfo,omitnil,omitempty" name:"TaskInfo"`
+
+	// <p>任务子状态</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Stage *string `json:"Stage,omitnil,omitempty" name:"Stage"`
 }
 
 type AigcVideoExtraParam struct {
@@ -3763,7 +3771,7 @@ type CloneViralAIGC struct {
 	// <p>视频时长</p><p>取值范围：[4, 15]</p>
 	Duration *int64 `json:"Duration,omitnil,omitempty" name:"Duration"`
 
-	// <p>宽高比。可选 16:9/4:3/1:1/3:4/9:16/21:9/adaptive</p>
+	// <p>宽高比。旗舰版支持 16:9/4:3/1:1/3:4/9:16/21:9/adaptive，标准版支持16:9/1:1/9:16</p>
 	AspectRatio *string `json:"AspectRatio,omitnil,omitempty" name:"AspectRatio"`
 
 	// <p>分辨率。支持720p（默认）/1080p/2k/4k</p>
@@ -3785,6 +3793,25 @@ type CloneViralContent struct {
 
 	// <p>裂变程度。exact/low/medium/high，默认exact 1:1复刻</p>
 	FissionLevel *string `json:"FissionLevel,omitnil,omitempty" name:"FissionLevel"`
+}
+
+type CloneViralCosInfo struct {
+	// <p>区域</p>
+	Region *string `json:"Region,omitnil,omitempty" name:"Region"`
+
+	// <p>COS桶</p>
+	Bucket *string `json:"Bucket,omitnil,omitempty" name:"Bucket"`
+
+	// <p>目录。空时默认根目录</p>
+	Dir *string `json:"Dir,omitnil,omitempty" name:"Dir"`
+}
+
+type CloneViralOutputOption struct {
+	// <p>输出类型。默认url</p><p>枚举值：</p><ul><li>url： 临时链接，有效期24小时</li><li>cos： 指定cos桶和路径</li></ul>
+	Type *string `json:"Type,omitnil,omitempty" name:"Type"`
+
+	// <p>自定义cos信息</p>
+	CosInfo *CloneViralCosInfo `json:"CosInfo,omitnil,omitempty" name:"CosInfo"`
 }
 
 type CloneViralPersona struct {
@@ -3828,6 +3855,9 @@ type CloneViralRequestParams struct {
 
 	// <p>模特形象</p>
 	Persona *CloneViralPersona `json:"Persona,omitnil,omitempty" name:"Persona"`
+
+	// <p>输出相关参数</p>
+	Output *CloneViralOutputOption `json:"Output,omitnil,omitempty" name:"Output"`
 }
 
 type CloneViralRequest struct {
@@ -3847,6 +3877,9 @@ type CloneViralRequest struct {
 
 	// <p>模特形象</p>
 	Persona *CloneViralPersona `json:"Persona,omitnil,omitempty" name:"Persona"`
+
+	// <p>输出相关参数</p>
+	Output *CloneViralOutputOption `json:"Output,omitnil,omitempty" name:"Output"`
 }
 
 func (r *CloneViralRequest) ToJsonString() string {
@@ -3866,6 +3899,7 @@ func (r *CloneViralRequest) FromJsonString(s string) error {
 	delete(f, "AIGCParam")
 	delete(f, "ContentParam")
 	delete(f, "Persona")
+	delete(f, "Output")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "CloneViralRequest has unknown keys!", "")
 	}
@@ -11908,6 +11942,14 @@ type DescribeAigcTaskStatusResponseParams struct {
 	// <p>任务类型</p>
 	TaskType *string `json:"TaskType,omitnil,omitempty" name:"TaskType"`
 
+	// <p>任务其他信息</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TaskInfo *string `json:"TaskInfo,omitnil,omitempty" name:"TaskInfo"`
+
+	// <p>任务子状态</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Stage *string `json:"Stage,omitnil,omitempty" name:"Stage"`
+
 	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
 	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
 }
@@ -12582,6 +12624,9 @@ type DescribeCloneViralTaskResponseParams struct {
 
 	// <p>当任务状态为 DONE时，返回视频Url列表，视频存储24小时</p>
 	VideoUrls []*string `json:"VideoUrls,omitnil,omitempty" name:"VideoUrls"`
+
+	// <p>任务请求体</p>
+	RequestBody *string `json:"RequestBody,omitnil,omitempty" name:"RequestBody"`
 
 	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
 	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
@@ -18522,6 +18567,11 @@ func (r *DisassociateSecurityGroupResponse) FromJsonString(s string) error {
 	return json.Unmarshal([]byte(s), &r)
 }
 
+type DocToVideoBackgroundInfo struct {
+	// <p>用于生成视频的背景图片 URL。</p>
+	ImageUrl *string `json:"ImageUrl,omitnil,omitempty" name:"ImageUrl"`
+}
+
 type DocToVideoCosInfo struct {
 	// <p>cos桶地域</p>
 	CosBucketRegion *string `json:"CosBucketRegion,omitnil,omitempty" name:"CosBucketRegion"`
@@ -18560,6 +18610,29 @@ type DocToVideoInput struct {
 
 	// <p>音色ID。仅开启AI配音功能时有效。</p>
 	VoiceId *string `json:"VoiceId,omitnil,omitempty" name:"VoiceId"`
+
+	// <p>是否开启 PPTX 保真复刻模式。</p><p>开启状态下，会尽可能复刻输入 PPTX 文档的内容，无法完美复刻。<br>暂时无法复刻动画效果，</p><p>开启状态下，需保证输入文档中至少有一个 PPTX 文档。<br>如果有多个 PPTX 文档，则只会对首个文档进行保真复刻。</p><p>默认值：false</p>
+	PPTXFidelity *bool `json:"PPTXFidelity,omitnil,omitempty" name:"PPTXFidelity"`
+
+	// <p>生成视频的模式。</p><p>枚举值：</p><ul><li>stage： 确认后生成模式</li><li>auto： 端到端直接生成模式</li></ul>
+	Mode *string `json:"Mode,omitnil,omitempty" name:"Mode"`
+
+	// <p>用于生成视频的背景图片信息。</p><p>仅在 PreserveLayout 为 false 时起作用。</p>
+	Background *DocToVideoBackgroundInfo `json:"Background,omitnil,omitempty" name:"Background"`
+
+	// <p>用于生成视频的水印图片信息。</p><p>仅在 PreserveLayout 为 false 时起作用。</p>
+	Watermark *DocToVideoWatermarkInfo `json:"Watermark,omitnil,omitempty" name:"Watermark"`
+
+	// <p>是否开启字幕生成。</p><p>默认值：false</p>
+	EnableCaption *bool `json:"EnableCaption,omitnil,omitempty" name:"EnableCaption"`
+}
+
+type DocToVideoWatermarkInfo struct {
+	// <p>用于生成视频的水印图片 URL。</p>
+	ImageUrl *string `json:"ImageUrl,omitnil,omitempty" name:"ImageUrl"`
+
+	// <p>水印图片位置。</p><p>枚举值：</p><ul><li>top-left： 左上角</li><li>top-right： 右上角</li><li>bottom-left： 左下角</li><li>bottom-right： 右下角</li></ul>
+	Position *string `json:"Position,omitnil,omitempty" name:"Position"`
 }
 
 type DrmInfo struct {
@@ -26957,7 +27030,7 @@ type QueryTaskFilter struct {
 	// <p>任务ID</p>
 	TaskId *string `json:"TaskId,omitnil,omitempty" name:"TaskId"`
 
-	// <p>任务类型</p>
+	// <p>任务类型</p><p>枚举值：</p><ul><li>RedrawVideo： 视频重绘</li><li>AIDrama： AI漫剧</li><li>DocGenVideo： 文档生视频</li><li>FissionVideo： 视频裂变</li></ul>
 	TaskType *string `json:"TaskType,omitnil,omitempty" name:"TaskType"`
 
 	// <p>任务状态</p>
@@ -26968,6 +27041,15 @@ type QueryTaskFilter struct {
 
 	// <p>宽高比</p>
 	Ratio *string `json:"Ratio,omitnil,omitempty" name:"Ratio"`
+
+	// <p>任务执行模式</p><p>枚举值：</p><ul><li>auto： 直接生成</li><li>phased： 确认后再生成</li></ul>
+	ExecuteMode *string `json:"ExecuteMode,omitnil,omitempty" name:"ExecuteMode"`
+
+	// <p>裂变任务视频类型过滤: ugc、talk、display、unboxing、reaction</p><p>枚举值：</p><ul><li>ugc： UGC种草</li><li>talk： 产品口播</li><li>display： 产品展示</li><li>unboxing： 开箱分享</li><li>reaction： 反应展示</li></ul>
+	VideoType *string `json:"VideoType,omitnil,omitempty" name:"VideoType"`
+
+	// <p>模型类型</p><p>枚举值：</p><ul><li>standard： 标准版</li><li>flagship： 高级版</li></ul>
+	ModelTier *string `json:"ModelTier,omitnil,omitempty" name:"ModelTier"`
 }
 
 type RTMPAddressDestination struct {

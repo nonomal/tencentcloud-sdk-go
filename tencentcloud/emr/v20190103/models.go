@@ -11786,6 +11786,12 @@ type NodeHardwareInfo struct {
 
 	// <p>磁盘问题描述</p>
 	DiskHealthIssues []*DiskHealthIssue `json:"DiskHealthIssues,omitnil,omitempty" name:"DiskHealthIssues"`
+
+	// <p>所在节点组ID</p>
+	NodeGroupId *string `json:"NodeGroupId,omitnil,omitempty" name:"NodeGroupId"`
+
+	// <p>所在节点组名称</p>
+	NodeGroupName *string `json:"NodeGroupName,omitnil,omitempty" name:"NodeGroupName"`
 }
 
 type NodeMark struct {

@@ -7734,35 +7734,47 @@ type RecordStatisticValue struct {
 }
 
 type RecordTaskItem struct {
-	// 录像任务ID
+	// <p>录像任务ID</p>
 	RecordTaskId *string `json:"RecordTaskId,omitnil,omitempty" name:"RecordTaskId"`
 
-	// 录制计划ID
+	// <p>录制计划ID</p>
 	RecordPlanId *string `json:"RecordPlanId,omitnil,omitempty" name:"RecordPlanId"`
 
-	// 本录制片段开始时间
+	// <p>本录制片段开始时间</p>
 	StartTime *int64 `json:"StartTime,omitnil,omitempty" name:"StartTime"`
 
-	// 本录制片段结束时间
+	// <p>本录制片段结束时间</p>
 	EndTime *int64 `json:"EndTime,omitnil,omitempty" name:"EndTime"`
 
-	// 录制模式
+	// <p>录制模式</p>
 	EventId *int64 `json:"EventId,omitnil,omitempty" name:"EventId"`
 
-	// 本录制片段对应的录制文件URL
+	// <p>本录制片段对应的录制文件URL</p>
 	VideoUrl *string `json:"VideoUrl,omitnil,omitempty" name:"VideoUrl"`
 
-	// 本录制片段当前的录制状态
+	// <p>本录制片段当前的录制状态</p>
 	RecordStatus *int64 `json:"RecordStatus,omitnil,omitempty" name:"RecordStatus"`
 
-	// 场景ID
+	// <p>场景ID</p>
 	SceneId *int64 `json:"SceneId,omitnil,omitempty" name:"SceneId"`
 
-	// 告警ID
+	// <p>告警ID</p>
 	WarnId *int64 `json:"WarnId,omitnil,omitempty" name:"WarnId"`
 
-	// 录制id，NVR下属设备有效
+	// <p>录制id，NVR下属设备有效</p>
 	RecordId *string `json:"RecordId,omitnil,omitempty" name:"RecordId"`
+
+	// <p>视频自增ID</p>
+	InitID *int64 `json:"InitID,omitnil,omitempty" name:"InitID"`
+
+	// <p>过期时间</p>
+	ExpectDeleteTime *int64 `json:"ExpectDeleteTime,omitnil,omitempty" name:"ExpectDeleteTime"`
+
+	// <p>录制时长</p>
+	RecordTimeLen *int64 `json:"RecordTimeLen,omitnil,omitempty" name:"RecordTimeLen"`
+
+	// <p>文件大小</p>
+	FileSize *int64 `json:"FileSize,omitnil,omitempty" name:"FileSize"`
 }
 
 // Predefined struct for user

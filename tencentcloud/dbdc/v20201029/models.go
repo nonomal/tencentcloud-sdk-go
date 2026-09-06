@@ -319,6 +319,119 @@ func (r *CreateDBCustomClusterResponse) FromJsonString(s string) error {
 }
 
 // Predefined struct for user
+type CreateDBCustomDisasterRecoverGroupRequestParams struct {
+	// <p>置放群组名称</p><p>入参限制：长度1-60个字符，支持中、英文</p>
+	Name *string `json:"Name,omitnil,omitempty" name:"Name"`
+
+	// <p>置放群组类型</p><p>枚举值：</p><ul><li>HOST： 物理机</li></ul><p>默认值：HOST</p><p>当前仅支持物理机类型</p>
+	Type *string `json:"Type,omitnil,omitempty" name:"Type"`
+
+	// <p>置放群组策略</p><p>入参限制：当前仅支持分散置放群组</p><p>枚举值：</p><ul><li>SPREAD： 分散置放群组</li></ul><p>默认值：SPREAD</p>
+	Strategy *string `json:"Strategy,omitnil,omitempty" name:"Strategy"`
+
+	// <p>置放群组的亲和度，在置放群组的实例会按该亲和度分布</p><p>取值范围：[1, 10]</p><p>默认值：1</p>
+	Affinity *int64 `json:"Affinity,omitnil,omitempty" name:"Affinity"`
+
+	// <p>标签</p>
+	Tags []*Tag `json:"Tags,omitnil,omitempty" name:"Tags"`
+
+	// <p>用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。</p>
+	ClientToken *string `json:"ClientToken,omitnil,omitempty" name:"ClientToken"`
+}
+
+type CreateDBCustomDisasterRecoverGroupRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>置放群组名称</p><p>入参限制：长度1-60个字符，支持中、英文</p>
+	Name *string `json:"Name,omitnil,omitempty" name:"Name"`
+
+	// <p>置放群组类型</p><p>枚举值：</p><ul><li>HOST： 物理机</li></ul><p>默认值：HOST</p><p>当前仅支持物理机类型</p>
+	Type *string `json:"Type,omitnil,omitempty" name:"Type"`
+
+	// <p>置放群组策略</p><p>入参限制：当前仅支持分散置放群组</p><p>枚举值：</p><ul><li>SPREAD： 分散置放群组</li></ul><p>默认值：SPREAD</p>
+	Strategy *string `json:"Strategy,omitnil,omitempty" name:"Strategy"`
+
+	// <p>置放群组的亲和度，在置放群组的实例会按该亲和度分布</p><p>取值范围：[1, 10]</p><p>默认值：1</p>
+	Affinity *int64 `json:"Affinity,omitnil,omitempty" name:"Affinity"`
+
+	// <p>标签</p>
+	Tags []*Tag `json:"Tags,omitnil,omitempty" name:"Tags"`
+
+	// <p>用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。</p>
+	ClientToken *string `json:"ClientToken,omitnil,omitempty" name:"ClientToken"`
+}
+
+func (r *CreateDBCustomDisasterRecoverGroupRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *CreateDBCustomDisasterRecoverGroupRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "Name")
+	delete(f, "Type")
+	delete(f, "Strategy")
+	delete(f, "Affinity")
+	delete(f, "Tags")
+	delete(f, "ClientToken")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "CreateDBCustomDisasterRecoverGroupRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type CreateDBCustomDisasterRecoverGroupResponseParams struct {
+	// <p>置放群组ID</p>
+	DisasterRecoverGroupId *string `json:"DisasterRecoverGroupId,omitnil,omitempty" name:"DisasterRecoverGroupId"`
+
+	// <p>置放群组名称</p>
+	Name *string `json:"Name,omitnil,omitempty" name:"Name"`
+
+	// <p>置放群组类型</p><p>枚举值：</p><ul><li>HOST： 物理机</li></ul>
+	Type *string `json:"Type,omitnil,omitempty" name:"Type"`
+
+	// <p>状态</p><p>枚举值：</p><ul><li>Creating： 创建中</li></ul>
+	Status *string `json:"Status,omitnil,omitempty" name:"Status"`
+
+	// <p>置放群组内可容纳的节点数量</p>
+	NodeQuotaTotal *int64 `json:"NodeQuotaTotal,omitnil,omitempty" name:"NodeQuotaTotal"`
+
+	// <p>置放群组内已有节点数量</p>
+	CurrentNum *int64 `json:"CurrentNum,omitnil,omitempty" name:"CurrentNum"`
+
+	// <p>创建时间</p>
+	CreatedTime *string `json:"CreatedTime,omitnil,omitempty" name:"CreatedTime"`
+
+	// <p>置放群组策略</p><p>枚举值：</p><ul><li>SPREAD： 分散置放群组</li></ul>
+	Strategy *string `json:"Strategy,omitnil,omitempty" name:"Strategy"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type CreateDBCustomDisasterRecoverGroupResponse struct {
+	*tchttp.BaseResponse
+	Response *CreateDBCustomDisasterRecoverGroupResponseParams `json:"Response"`
+}
+
+func (r *CreateDBCustomDisasterRecoverGroupResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *CreateDBCustomDisasterRecoverGroupResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
 type CreateDBCustomNodesRequestParams struct {
 	// <p>产品支持的可用区</p><p>枚举值：</p><ul><li>ap-shanghai-5： 上海五区</li><li>ap-shanghai-8： 上海八区</li><li>ap-nanjing-3： 南京三区</li></ul>
 	Zone *string `json:"Zone,omitnil,omitempty" name:"Zone"`
@@ -382,6 +495,9 @@ type CreateDBCustomNodesRequestParams struct {
 
 	// <p>设置节点安全组</p><p>参数格式：设置需要与节点绑定的多个安全组ID，以数组形式配置。</p>
 	SecurityGroupIds []*string `json:"SecurityGroupIds,omitnil,omitempty" name:"SecurityGroupIds"`
+
+	// <p>置放群组ID</p><p>入参限制：仅支持指定一个</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
 }
 
 type CreateDBCustomNodesRequest struct {
@@ -449,6 +565,9 @@ type CreateDBCustomNodesRequest struct {
 
 	// <p>设置节点安全组</p><p>参数格式：设置需要与节点绑定的多个安全组ID，以数组形式配置。</p>
 	SecurityGroupIds []*string `json:"SecurityGroupIds,omitnil,omitempty" name:"SecurityGroupIds"`
+
+	// <p>置放群组ID</p><p>入参限制：仅支持指定一个</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
 }
 
 func (r *CreateDBCustomNodesRequest) ToJsonString() string {
@@ -484,6 +603,7 @@ func (r *CreateDBCustomNodesRequest) FromJsonString(s string) error {
 	delete(f, "HostName")
 	delete(f, "DryRun")
 	delete(f, "SecurityGroupIds")
+	delete(f, "DisasterRecoverGroupIds")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "CreateDBCustomNodesRequest has unknown keys!", "")
 	}
@@ -732,6 +852,9 @@ type DBCustomNode struct {
 	// <p>节点绑定的安全组</p>
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	SecurityGroupIds []*string `json:"SecurityGroupIds,omitnil,omitempty" name:"SecurityGroupIds"`
+
+	// <p>置放群组ID</p>
+	DisasterRecoverGroupId *string `json:"DisasterRecoverGroupId,omitnil,omitempty" name:"DisasterRecoverGroupId"`
 }
 
 type DBCustomNodeTypeInfo struct {
@@ -837,6 +960,129 @@ type DataDisk struct {
 
 	// <p>磁盘名称</p><p>DataDisk 作为输入参数时，DiskName 无效。</p>
 	DiskName *string `json:"DiskName,omitnil,omitempty" name:"DiskName"`
+}
+
+// Predefined struct for user
+type DeleteDBCustomDisasterRecoverGroupsRequestParams struct {
+	// <p>置放群组ID</p><p>入参限制：数量上限为10。若置放群组内有节点，需要先移除。</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
+}
+
+type DeleteDBCustomDisasterRecoverGroupsRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>置放群组ID</p><p>入参限制：数量上限为10。若置放群组内有节点，需要先移除。</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
+}
+
+func (r *DeleteDBCustomDisasterRecoverGroupsRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DeleteDBCustomDisasterRecoverGroupsRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "DisasterRecoverGroupIds")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "DeleteDBCustomDisasterRecoverGroupsRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DeleteDBCustomDisasterRecoverGroupsResponseParams struct {
+	// <p>任务ID</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TaskId *uint64 `json:"TaskId,omitnil,omitempty" name:"TaskId"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type DeleteDBCustomDisasterRecoverGroupsResponse struct {
+	*tchttp.BaseResponse
+	Response *DeleteDBCustomDisasterRecoverGroupsResponseParams `json:"Response"`
+}
+
+func (r *DeleteDBCustomDisasterRecoverGroupsResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DeleteDBCustomDisasterRecoverGroupsResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DeleteDBCustomNodesDisasterRecoverGroupRequestParams struct {
+	// <p>节点ID</p><p>入参限制：单次数量上限为100</p>
+	NodeIds []*string `json:"NodeIds,omitnil,omitempty" name:"NodeIds"`
+
+	// <p>置放群组ID</p><p>入参限制：只支持传一个ID</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
+}
+
+type DeleteDBCustomNodesDisasterRecoverGroupRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>节点ID</p><p>入参限制：单次数量上限为100</p>
+	NodeIds []*string `json:"NodeIds,omitnil,omitempty" name:"NodeIds"`
+
+	// <p>置放群组ID</p><p>入参限制：只支持传一个ID</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
+}
+
+func (r *DeleteDBCustomNodesDisasterRecoverGroupRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DeleteDBCustomNodesDisasterRecoverGroupRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "NodeIds")
+	delete(f, "DisasterRecoverGroupIds")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "DeleteDBCustomNodesDisasterRecoverGroupRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DeleteDBCustomNodesDisasterRecoverGroupResponseParams struct {
+	// <p>任务ID</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TaskId *uint64 `json:"TaskId,omitnil,omitempty" name:"TaskId"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type DeleteDBCustomNodesDisasterRecoverGroupResponse struct {
+	*tchttp.BaseResponse
+	Response *DeleteDBCustomNodesDisasterRecoverGroupResponseParams `json:"Response"`
+}
+
+func (r *DeleteDBCustomNodesDisasterRecoverGroupResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DeleteDBCustomNodesDisasterRecoverGroupResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
 }
 
 // Predefined struct for user
@@ -1359,6 +1605,155 @@ func (r *DescribeDBCustomClustersResponse) ToJsonString() string {
 // FromJsonString It is highly **NOT** recommended to use this function
 // because it has no param check, nor strict type check
 func (r *DescribeDBCustomClustersResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DescribeDBCustomDisasterRecoverGroupQuotaRequestParams struct {
+
+}
+
+type DescribeDBCustomDisasterRecoverGroupQuotaRequest struct {
+	*tchttp.BaseRequest
+	
+}
+
+func (r *DescribeDBCustomDisasterRecoverGroupQuotaRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeDBCustomDisasterRecoverGroupQuotaRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "DescribeDBCustomDisasterRecoverGroupQuotaRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DescribeDBCustomDisasterRecoverGroupQuotaResponseParams struct {
+	// <p>可创建置放群组数量的上限</p>
+	GroupQuota *int64 `json:"GroupQuota,omitnil,omitempty" name:"GroupQuota"`
+
+	// <p>已经创建的置放群组数量</p>
+	CurrentNum *int64 `json:"CurrentNum,omitnil,omitempty" name:"CurrentNum"`
+
+	// <p>物理机类型置放群组内节点的配额数</p>
+	NodeInHostGroupQuota *int64 `json:"NodeInHostGroupQuota,omitnil,omitempty" name:"NodeInHostGroupQuota"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type DescribeDBCustomDisasterRecoverGroupQuotaResponse struct {
+	*tchttp.BaseResponse
+	Response *DescribeDBCustomDisasterRecoverGroupQuotaResponseParams `json:"Response"`
+}
+
+func (r *DescribeDBCustomDisasterRecoverGroupQuotaResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeDBCustomDisasterRecoverGroupQuotaResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DescribeDBCustomDisasterRecoverGroupsRequestParams struct {
+	// <p>置放群组ID</p><p>入参限制：单次数量上限是10</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
+
+	// <p>查询筛选条件。支持的筛选条件包括：</p><ul><li>tag-key：按标签键进行过滤。</li><li>tag-value：按标签值进行过滤。</li></ul><p>入参限制：数量上限为5</p>
+	Filters []*Filter `json:"Filters,omitnil,omitempty" name:"Filters"`
+
+	// <p>根据标签键和标签值筛选 DB Custom 置放群组</p><p>入参限制：数量上限为5</p>
+	Tags []*Tag `json:"Tags,omitnil,omitempty" name:"Tags"`
+
+	// <p>分页偏移量</p>
+	Offset *int64 `json:"Offset,omitnil,omitempty" name:"Offset"`
+
+	// <p>返回数量</p><p>取值范围：[1, 100]</p><p>默认值：20</p>
+	Limit *int64 `json:"Limit,omitnil,omitempty" name:"Limit"`
+}
+
+type DescribeDBCustomDisasterRecoverGroupsRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>置放群组ID</p><p>入参限制：单次数量上限是10</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
+
+	// <p>查询筛选条件。支持的筛选条件包括：</p><ul><li>tag-key：按标签键进行过滤。</li><li>tag-value：按标签值进行过滤。</li></ul><p>入参限制：数量上限为5</p>
+	Filters []*Filter `json:"Filters,omitnil,omitempty" name:"Filters"`
+
+	// <p>根据标签键和标签值筛选 DB Custom 置放群组</p><p>入参限制：数量上限为5</p>
+	Tags []*Tag `json:"Tags,omitnil,omitempty" name:"Tags"`
+
+	// <p>分页偏移量</p>
+	Offset *int64 `json:"Offset,omitnil,omitempty" name:"Offset"`
+
+	// <p>返回数量</p><p>取值范围：[1, 100]</p><p>默认值：20</p>
+	Limit *int64 `json:"Limit,omitnil,omitempty" name:"Limit"`
+}
+
+func (r *DescribeDBCustomDisasterRecoverGroupsRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeDBCustomDisasterRecoverGroupsRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "DisasterRecoverGroupIds")
+	delete(f, "Filters")
+	delete(f, "Tags")
+	delete(f, "Offset")
+	delete(f, "Limit")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "DescribeDBCustomDisasterRecoverGroupsRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type DescribeDBCustomDisasterRecoverGroupsResponseParams struct {
+	// <p>总数</p>
+	TotalCount *int64 `json:"TotalCount,omitnil,omitempty" name:"TotalCount"`
+
+	// <p>置放群组列表</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	DisasterRecoverGroupSet []*DisasterRecoverGroup `json:"DisasterRecoverGroupSet,omitnil,omitempty" name:"DisasterRecoverGroupSet"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type DescribeDBCustomDisasterRecoverGroupsResponse struct {
+	*tchttp.BaseResponse
+	Response *DescribeDBCustomDisasterRecoverGroupsResponseParams `json:"Response"`
+}
+
+func (r *DescribeDBCustomDisasterRecoverGroupsResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *DescribeDBCustomDisasterRecoverGroupsResponse) FromJsonString(s string) error {
 	return json.Unmarshal([]byte(s), &r)
 }
 
@@ -2595,6 +2990,42 @@ type DeviceInfo struct {
 	InstanceNum *uint64 `json:"InstanceNum,omitnil,omitempty" name:"InstanceNum"`
 }
 
+type DisasterRecoverGroup struct {
+	// <p>置放群组ID</p>
+	DisasterRecoverGroupId *string `json:"DisasterRecoverGroupId,omitnil,omitempty" name:"DisasterRecoverGroupId"`
+
+	// <p>置放群组名称</p>
+	Name *string `json:"Name,omitnil,omitempty" name:"Name"`
+
+	// <p>置放群组类型</p><p>枚举值：</p><ul><li>HOST： 物理机</li></ul>
+	Type *string `json:"Type,omitnil,omitempty" name:"Type"`
+
+	// <p>置放群组状态</p><p>枚举值：</p><ul><li>Creating： 创建中</li><li>Available： 正常可使用</li><li>CreateFailed： 创建失败</li><li>Deleting： 删除中</li><li>Modifying： 变更中</li></ul>
+	Status *string `json:"Status,omitnil,omitempty" name:"Status"`
+
+	// <p>置放群组内最大容纳节点数</p>
+	NodeQuotaTotal *uint64 `json:"NodeQuotaTotal,omitnil,omitempty" name:"NodeQuotaTotal"`
+
+	// <p>置放群组内当前节点数</p>
+	CurrentNum *uint64 `json:"CurrentNum,omitnil,omitempty" name:"CurrentNum"`
+
+	// <p>亲和度</p><p>取值范围：[1, 10]</p>
+	Affinity *uint64 `json:"Affinity,omitnil,omitempty" name:"Affinity"`
+
+	// <p>置放群组策略</p><p>枚举值：</p><ul><li>SPREAD： 分散置放群组</li></ul>
+	Strategy *string `json:"Strategy,omitnil,omitempty" name:"Strategy"`
+
+	// <p>创建时间</p>
+	CreatedTime *string `json:"CreatedTime,omitnil,omitempty" name:"CreatedTime"`
+
+	// <p>标签信息</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Tags []*Tag `json:"Tags,omitnil,omitempty" name:"Tags"`
+
+	// <p>置放群组内 DB Custom 节点数量</p>
+	NodeIds []*string `json:"NodeIds,omitnil,omitempty" name:"NodeIds"`
+}
+
 type Filter struct {
 	// <p>筛选条件</p>
 	Name *string `json:"Name,omitnil,omitempty" name:"Name"`
@@ -3009,10 +3440,10 @@ type ModifyDBCustomClusterTagsRequestParams struct {
 	// <p>DB Custom 集群ID</p><p>参数格式：dbcc-xxxxxxxx</p>
 	ClusterId *string `json:"ClusterId,omitnil,omitempty" name:"ClusterId"`
 
-	// <p>为 DB Custom 集群绑定的标签信息</p><p>入参限制：参考标签平台的限制策略</p>
+	// <p>为 DB Custom 集群绑定的标签信息</p><p>入参限制：参考标签平台的限制策略</p><p>如果集群未关联输入的标签键，则增加关联；若已关联，则将该集群关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
 	AddTags []*Tag `json:"AddTags,omitnil,omitempty" name:"AddTags"`
 
-	// <p>为 DB Custom 集群删除的标签Key</p>
+	// <p>为 DB Custom 集群解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
 	DeleteTagKeys []*string `json:"DeleteTagKeys,omitnil,omitempty" name:"DeleteTagKeys"`
 }
 
@@ -3022,10 +3453,10 @@ type ModifyDBCustomClusterTagsRequest struct {
 	// <p>DB Custom 集群ID</p><p>参数格式：dbcc-xxxxxxxx</p>
 	ClusterId *string `json:"ClusterId,omitnil,omitempty" name:"ClusterId"`
 
-	// <p>为 DB Custom 集群绑定的标签信息</p><p>入参限制：参考标签平台的限制策略</p>
+	// <p>为 DB Custom 集群绑定的标签信息</p><p>入参限制：参考标签平台的限制策略</p><p>如果集群未关联输入的标签键，则增加关联；若已关联，则将该集群关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
 	AddTags []*Tag `json:"AddTags,omitnil,omitempty" name:"AddTags"`
 
-	// <p>为 DB Custom 集群删除的标签Key</p>
+	// <p>为 DB Custom 集群解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
 	DeleteTagKeys []*string `json:"DeleteTagKeys,omitnil,omitempty" name:"DeleteTagKeys"`
 }
 
@@ -3069,6 +3500,145 @@ func (r *ModifyDBCustomClusterTagsResponse) ToJsonString() string {
 // FromJsonString It is highly **NOT** recommended to use this function
 // because it has no param check, nor strict type check
 func (r *ModifyDBCustomClusterTagsResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type ModifyDBCustomDisasterRecoverGroupAttributeRequestParams struct {
+	// <p>置放群组ID</p>
+	DisasterRecoverGroupId *string `json:"DisasterRecoverGroupId,omitnil,omitempty" name:"DisasterRecoverGroupId"`
+
+	// <p>置放群组名称</p><p>入参限制：长度1-60个字符，支持中、英文</p>
+	Name *string `json:"Name,omitnil,omitempty" name:"Name"`
+
+	// <p>置放群组的亲和度，在置放群组的节点会按该亲和度分布</p><p>取值范围：[1, 10]</p>
+	Affinity *int64 `json:"Affinity,omitnil,omitempty" name:"Affinity"`
+}
+
+type ModifyDBCustomDisasterRecoverGroupAttributeRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>置放群组ID</p>
+	DisasterRecoverGroupId *string `json:"DisasterRecoverGroupId,omitnil,omitempty" name:"DisasterRecoverGroupId"`
+
+	// <p>置放群组名称</p><p>入参限制：长度1-60个字符，支持中、英文</p>
+	Name *string `json:"Name,omitnil,omitempty" name:"Name"`
+
+	// <p>置放群组的亲和度，在置放群组的节点会按该亲和度分布</p><p>取值范围：[1, 10]</p>
+	Affinity *int64 `json:"Affinity,omitnil,omitempty" name:"Affinity"`
+}
+
+func (r *ModifyDBCustomDisasterRecoverGroupAttributeRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ModifyDBCustomDisasterRecoverGroupAttributeRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "DisasterRecoverGroupId")
+	delete(f, "Name")
+	delete(f, "Affinity")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "ModifyDBCustomDisasterRecoverGroupAttributeRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type ModifyDBCustomDisasterRecoverGroupAttributeResponseParams struct {
+	// <p>任务ID</p>
+	TaskId *uint64 `json:"TaskId,omitnil,omitempty" name:"TaskId"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type ModifyDBCustomDisasterRecoverGroupAttributeResponse struct {
+	*tchttp.BaseResponse
+	Response *ModifyDBCustomDisasterRecoverGroupAttributeResponseParams `json:"Response"`
+}
+
+func (r *ModifyDBCustomDisasterRecoverGroupAttributeResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ModifyDBCustomDisasterRecoverGroupAttributeResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type ModifyDBCustomDisasterRecoverGroupTagsRequestParams struct {
+	// <p>置放群组ID</p>
+	DisasterRecoverGroupId *string `json:"DisasterRecoverGroupId,omitnil,omitempty" name:"DisasterRecoverGroupId"`
+
+	// <p>为 DB Custom 置放群组绑定的标签信息</p><p>入参限制：参考标签侧的限制</p><p>如果置放群组未关联输入的标签键，则增加关联；若已关联，则将该置放群组关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
+	AddTags []*Tag `json:"AddTags,omitnil,omitempty" name:"AddTags"`
+
+	// <p>需要解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
+	DeleteTagKeys []*string `json:"DeleteTagKeys,omitnil,omitempty" name:"DeleteTagKeys"`
+}
+
+type ModifyDBCustomDisasterRecoverGroupTagsRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>置放群组ID</p>
+	DisasterRecoverGroupId *string `json:"DisasterRecoverGroupId,omitnil,omitempty" name:"DisasterRecoverGroupId"`
+
+	// <p>为 DB Custom 置放群组绑定的标签信息</p><p>入参限制：参考标签侧的限制</p><p>如果置放群组未关联输入的标签键，则增加关联；若已关联，则将该置放群组关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
+	AddTags []*Tag `json:"AddTags,omitnil,omitempty" name:"AddTags"`
+
+	// <p>需要解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
+	DeleteTagKeys []*string `json:"DeleteTagKeys,omitnil,omitempty" name:"DeleteTagKeys"`
+}
+
+func (r *ModifyDBCustomDisasterRecoverGroupTagsRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ModifyDBCustomDisasterRecoverGroupTagsRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "DisasterRecoverGroupId")
+	delete(f, "AddTags")
+	delete(f, "DeleteTagKeys")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "ModifyDBCustomDisasterRecoverGroupTagsRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type ModifyDBCustomDisasterRecoverGroupTagsResponseParams struct {
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type ModifyDBCustomDisasterRecoverGroupTagsResponse struct {
+	*tchttp.BaseResponse
+	Response *ModifyDBCustomDisasterRecoverGroupTagsResponseParams `json:"Response"`
+}
+
+func (r *ModifyDBCustomDisasterRecoverGroupTagsResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ModifyDBCustomDisasterRecoverGroupTagsResponse) FromJsonString(s string) error {
 	return json.Unmarshal([]byte(s), &r)
 }
 
@@ -3217,10 +3787,10 @@ type ModifyDBCustomNodeTagsRequestParams struct {
 	// <p>DB Custom 节点ID</p><p>参数格式：dbcn-0zan5xxk</p>
 	NodeId *string `json:"NodeId,omitnil,omitempty" name:"NodeId"`
 
-	// <p>为节点绑定的标签信息</p><p>入参限制：参考标签侧的限制</p>
+	// <p>为节点绑定的标签信息</p><p>入参限制：参考标签侧的限制</p><p>如果节点未关联输入的标签键，则增加关联；若已关联，则将该节点关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
 	AddTags []*Tag `json:"AddTags,omitnil,omitempty" name:"AddTags"`
 
-	// <p>需要删除的标签Key</p>
+	// <p>需要解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
 	DeleteTagKeys []*string `json:"DeleteTagKeys,omitnil,omitempty" name:"DeleteTagKeys"`
 }
 
@@ -3230,10 +3800,10 @@ type ModifyDBCustomNodeTagsRequest struct {
 	// <p>DB Custom 节点ID</p><p>参数格式：dbcn-0zan5xxk</p>
 	NodeId *string `json:"NodeId,omitnil,omitempty" name:"NodeId"`
 
-	// <p>为节点绑定的标签信息</p><p>入参限制：参考标签侧的限制</p>
+	// <p>为节点绑定的标签信息</p><p>入参限制：参考标签侧的限制</p><p>如果节点未关联输入的标签键，则增加关联；若已关联，则将该节点关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
 	AddTags []*Tag `json:"AddTags,omitnil,omitempty" name:"AddTags"`
 
-	// <p>需要删除的标签Key</p>
+	// <p>需要解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
 	DeleteTagKeys []*string `json:"DeleteTagKeys,omitnil,omitempty" name:"DeleteTagKeys"`
 }
 
@@ -3277,6 +3847,78 @@ func (r *ModifyDBCustomNodeTagsResponse) ToJsonString() string {
 // FromJsonString It is highly **NOT** recommended to use this function
 // because it has no param check, nor strict type check
 func (r *ModifyDBCustomNodeTagsResponse) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type ModifyDBCustomNodesDisasterRecoverGroupRequestParams struct {
+	// <p>节点ID</p><p>入参限制：单次数量上限为100</p>
+	NodeIds []*string `json:"NodeIds,omitnil,omitempty" name:"NodeIds"`
+
+	// <p>置放群组ID</p><p>入参限制：支持传一个ID</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
+
+	// <p>是否强制更换节点宿主机</p><p>枚举值：</p><ul><li>true： 表示允许节点更换宿主机，允许重启。本地盘节点不支持指定此参数。</li><li>false： 不允许节点更换宿主机，只在当前宿主机上加入置放群组。这可能导致更换置放群组失败。</li></ul><p>默认值：false</p>
+	Force *bool `json:"Force,omitnil,omitempty" name:"Force"`
+}
+
+type ModifyDBCustomNodesDisasterRecoverGroupRequest struct {
+	*tchttp.BaseRequest
+	
+	// <p>节点ID</p><p>入参限制：单次数量上限为100</p>
+	NodeIds []*string `json:"NodeIds,omitnil,omitempty" name:"NodeIds"`
+
+	// <p>置放群组ID</p><p>入参限制：支持传一个ID</p>
+	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitnil,omitempty" name:"DisasterRecoverGroupIds"`
+
+	// <p>是否强制更换节点宿主机</p><p>枚举值：</p><ul><li>true： 表示允许节点更换宿主机，允许重启。本地盘节点不支持指定此参数。</li><li>false： 不允许节点更换宿主机，只在当前宿主机上加入置放群组。这可能导致更换置放群组失败。</li></ul><p>默认值：false</p>
+	Force *bool `json:"Force,omitnil,omitempty" name:"Force"`
+}
+
+func (r *ModifyDBCustomNodesDisasterRecoverGroupRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ModifyDBCustomNodesDisasterRecoverGroupRequest) FromJsonString(s string) error {
+	f := make(map[string]interface{})
+	if err := json.Unmarshal([]byte(s), &f); err != nil {
+		return err
+	}
+	delete(f, "NodeIds")
+	delete(f, "DisasterRecoverGroupIds")
+	delete(f, "Force")
+	if len(f) > 0 {
+		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "ModifyDBCustomNodesDisasterRecoverGroupRequest has unknown keys!", "")
+	}
+	return json.Unmarshal([]byte(s), &r)
+}
+
+// Predefined struct for user
+type ModifyDBCustomNodesDisasterRecoverGroupResponseParams struct {
+	// <p>任务ID</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TaskId *uint64 `json:"TaskId,omitnil,omitempty" name:"TaskId"`
+
+	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
+}
+
+type ModifyDBCustomNodesDisasterRecoverGroupResponse struct {
+	*tchttp.BaseResponse
+	Response *ModifyDBCustomNodesDisasterRecoverGroupResponseParams `json:"Response"`
+}
+
+func (r *ModifyDBCustomNodesDisasterRecoverGroupResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+// FromJsonString It is highly **NOT** recommended to use this function
+// because it has no param check, nor strict type check
+func (r *ModifyDBCustomNodesDisasterRecoverGroupResponse) FromJsonString(s string) error {
 	return json.Unmarshal([]byte(s), &r)
 }
 

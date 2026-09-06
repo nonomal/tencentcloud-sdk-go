@@ -978,7 +978,13 @@ func NewCreateAigcAudioTaskResponse() (response *CreateAigcAudioTaskResponse) {
 // 调用该接口，用于创建 AI 生音频任务。
 //
 // 可能返回的错误码:
+//  INTERNALERROR = "InternalError"
 //  INVALIDPARAMETER_VIOLATIONCONTENT = "InvalidParameter.ViolationContent"
+//  INVALIDPARAMETERVALUE = "InvalidParameterValue"
+//  INVALIDPARAMETERVALUE_FILEID = "InvalidParameterValue.FileId"
+//  INVALIDPARAMETERVALUE_SESSIONCONTEXTTOOLONG = "InvalidParameterValue.SessionContextTooLong"
+//  INVALIDPARAMETERVALUE_SESSIONID = "InvalidParameterValue.SessionId"
+//  INVALIDPARAMETERVALUE_SESSIONIDTOOLONG = "InvalidParameterValue.SessionIdTooLong"
 func (c *Client) CreateAigcAudioTask(request *CreateAigcAudioTaskRequest) (response *CreateAigcAudioTaskResponse, err error) {
     return c.CreateAigcAudioTaskWithContext(context.Background(), request)
 }
@@ -987,7 +993,13 @@ func (c *Client) CreateAigcAudioTask(request *CreateAigcAudioTaskRequest) (respo
 // 调用该接口，用于创建 AI 生音频任务。
 //
 // 可能返回的错误码:
+//  INTERNALERROR = "InternalError"
 //  INVALIDPARAMETER_VIOLATIONCONTENT = "InvalidParameter.ViolationContent"
+//  INVALIDPARAMETERVALUE = "InvalidParameterValue"
+//  INVALIDPARAMETERVALUE_FILEID = "InvalidParameterValue.FileId"
+//  INVALIDPARAMETERVALUE_SESSIONCONTEXTTOOLONG = "InvalidParameterValue.SessionContextTooLong"
+//  INVALIDPARAMETERVALUE_SESSIONID = "InvalidParameterValue.SessionId"
+//  INVALIDPARAMETERVALUE_SESSIONIDTOOLONG = "InvalidParameterValue.SessionIdTooLong"
 func (c *Client) CreateAigcAudioTaskWithContext(ctx context.Context, request *CreateAigcAudioTaskRequest) (response *CreateAigcAudioTaskResponse, err error) {
     if request == nil {
         request = NewCreateAigcAudioTaskRequest()
@@ -1028,7 +1040,8 @@ func NewCreateAigcCustomElementResponse() (response *CreateAigcCustomElementResp
 // 调用该接口，针对指定模型进行主体创建。
 //
 // 可能返回的错误码:
-//  INVALIDPARAMETER_VIOLATIONCONTENT = "InvalidParameter.ViolationContent"
+//  INTERNALERROR = "InternalError"
+//  INVALIDPARAMETERVALUE = "InvalidParameterValue"
 func (c *Client) CreateAigcCustomElement(request *CreateAigcCustomElementRequest) (response *CreateAigcCustomElementResponse, err error) {
     return c.CreateAigcCustomElementWithContext(context.Background(), request)
 }
@@ -1037,7 +1050,8 @@ func (c *Client) CreateAigcCustomElement(request *CreateAigcCustomElementRequest
 // 调用该接口，针对指定模型进行主体创建。
 //
 // 可能返回的错误码:
-//  INVALIDPARAMETER_VIOLATIONCONTENT = "InvalidParameter.ViolationContent"
+//  INTERNALERROR = "InternalError"
+//  INVALIDPARAMETERVALUE = "InvalidParameterValue"
 func (c *Client) CreateAigcCustomElementWithContext(ctx context.Context, request *CreateAigcCustomElementRequest) (response *CreateAigcCustomElementResponse, err error) {
     if request == nil {
         request = NewCreateAigcCustomElementRequest()

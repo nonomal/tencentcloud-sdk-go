@@ -386,7 +386,7 @@ type AddInstancesRequestParams struct {
 	// <p>实例机器类型，支持值如下：</p><ul><li>common：表示通用型</li><li>exclusive：表示独享型</li></ul>
 	DeviceType *string `json:"DeviceType,omitnil,omitempty" name:"DeviceType"`
 
-	// <p>实例组ID，在已有RO组中新增实例时使用，不传则新增RO组。当前版本不建议传输该值。</p>
+	// <p>当前字段已废弃。当前版本不再传输该值。</p>
 	//
 	// Deprecated: InstanceGrpId is deprecated.
 	InstanceGrpId *string `json:"InstanceGrpId,omitnil,omitempty" name:"InstanceGrpId"`
@@ -446,7 +446,7 @@ type AddInstancesRequest struct {
 	// <p>实例机器类型，支持值如下：</p><ul><li>common：表示通用型</li><li>exclusive：表示独享型</li></ul>
 	DeviceType *string `json:"DeviceType,omitnil,omitempty" name:"DeviceType"`
 
-	// <p>实例组ID，在已有RO组中新增实例时使用，不传则新增RO组。当前版本不建议传输该值。</p>
+	// <p>当前字段已废弃。当前版本不再传输该值。</p>
 	InstanceGrpId *string `json:"InstanceGrpId,omitnil,omitempty" name:"InstanceGrpId"`
 
 	// <p>所属VPC网络ID。</p>
@@ -8808,32 +8808,32 @@ func (r *DescribeClusterDatabasesResponse) FromJsonString(s string) error {
 
 // Predefined struct for user
 type DescribeClusterDetailDatabasesRequestParams struct {
-	// 集群ID
+	// <p>集群ID</p>
 	ClusterId *string `json:"ClusterId,omitnil,omitempty" name:"ClusterId"`
 
-	// 偏移量，默认0
+	// <p>偏移量，默认0</p>
 	Offset *int64 `json:"Offset,omitnil,omitempty" name:"Offset"`
 
-	// 返回数量，默认20,最大100
+	// <p>返回数量，默认20,最大100</p>
 	Limit *int64 `json:"Limit,omitnil,omitempty" name:"Limit"`
 
-	// 数据库名称
+	// <p>数据库名称，通过该字段进行子串匹配</p>
 	DbName *string `json:"DbName,omitnil,omitempty" name:"DbName"`
 }
 
 type DescribeClusterDetailDatabasesRequest struct {
 	*tchttp.BaseRequest
 	
-	// 集群ID
+	// <p>集群ID</p>
 	ClusterId *string `json:"ClusterId,omitnil,omitempty" name:"ClusterId"`
 
-	// 偏移量，默认0
+	// <p>偏移量，默认0</p>
 	Offset *int64 `json:"Offset,omitnil,omitempty" name:"Offset"`
 
-	// 返回数量，默认20,最大100
+	// <p>返回数量，默认20,最大100</p>
 	Limit *int64 `json:"Limit,omitnil,omitempty" name:"Limit"`
 
-	// 数据库名称
+	// <p>数据库名称，通过该字段进行子串匹配</p>
 	DbName *string `json:"DbName,omitnil,omitempty" name:"DbName"`
 }
 
@@ -8861,10 +8861,10 @@ func (r *DescribeClusterDetailDatabasesRequest) FromJsonString(s string) error {
 
 // Predefined struct for user
 type DescribeClusterDetailDatabasesResponseParams struct {
-	// 数据库信息
+	// <p>数据库信息</p>
 	DbInfos []*DbInfo `json:"DbInfos,omitnil,omitempty" name:"DbInfos"`
 
-	// 总数
+	// <p>总数</p>
 	TotalCount *int64 `json:"TotalCount,omitnil,omitempty" name:"TotalCount"`
 
 	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
@@ -10492,7 +10492,7 @@ type DescribeInstanceSpecsRequestParams struct {
 	// <p>实例机器类型</p>
 	DeviceType *string `json:"DeviceType,omitnil,omitempty" name:"DeviceType"`
 
-	// <p>集群级别，可空。例如 P0, P1</p>
+	// <p>集群级别。例如 P0, P1。若未指定可用区，针对于不支持亲和性的可用区将降级查询非亲和性资源。</p>
 	ClusterLevel *string `json:"ClusterLevel,omitnil,omitempty" name:"ClusterLevel"`
 }
 
@@ -10508,7 +10508,7 @@ type DescribeInstanceSpecsRequest struct {
 	// <p>实例机器类型</p>
 	DeviceType *string `json:"DeviceType,omitnil,omitempty" name:"DeviceType"`
 
-	// <p>集群级别，可空。例如 P0, P1</p>
+	// <p>集群级别。例如 P0, P1。若未指定可用区，针对于不支持亲和性的可用区将降级查询非亲和性资源。</p>
 	ClusterLevel *string `json:"ClusterLevel,omitnil,omitempty" name:"ClusterLevel"`
 }
 
@@ -25092,12 +25092,15 @@ func (r *TransferClusterZoneResponse) FromJsonString(s string) error {
 
 // Predefined struct for user
 type TransferStoragePrepayToPostpayRequestParams struct {
-
+	// <p>集群id</p>
+	ClusterId *string `json:"ClusterId,omitnil,omitempty" name:"ClusterId"`
 }
 
 type TransferStoragePrepayToPostpayRequest struct {
 	*tchttp.BaseRequest
 	
+	// <p>集群id</p>
+	ClusterId *string `json:"ClusterId,omitnil,omitempty" name:"ClusterId"`
 }
 
 func (r *TransferStoragePrepayToPostpayRequest) ToJsonString() string {
@@ -25112,7 +25115,7 @@ func (r *TransferStoragePrepayToPostpayRequest) FromJsonString(s string) error {
 	if err := json.Unmarshal([]byte(s), &f); err != nil {
 		return err
 	}
-	
+	delete(f, "ClusterId")
 	if len(f) > 0 {
 		return tcerr.NewTencentCloudSDKError("ClientError.BuildRequestError", "TransferStoragePrepayToPostpayRequest has unknown keys!", "")
 	}
@@ -25121,6 +25124,22 @@ func (r *TransferStoragePrepayToPostpayRequest) FromJsonString(s string) error {
 
 // Predefined struct for user
 type TransferStoragePrepayToPostpayResponseParams struct {
+	// <p>预付费总订单号</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	BigDealIds []*string `json:"BigDealIds,omitnil,omitempty" name:"BigDealIds"`
+
+	// <p>订单号</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	DealNames []*string `json:"DealNames,omitnil,omitempty" name:"DealNames"`
+
+	// <p>资源id</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ResourceIds []*string `json:"ResourceIds,omitnil,omitempty" name:"ResourceIds"`
+
+	// <p>集群id</p>
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ClusterIds []*string `json:"ClusterIds,omitnil,omitempty" name:"ClusterIds"`
+
 	// 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
 	RequestId *string `json:"RequestId,omitnil,omitempty" name:"RequestId"`
 }

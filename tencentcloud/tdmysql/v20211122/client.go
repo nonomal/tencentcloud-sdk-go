@@ -599,6 +599,64 @@ func (c *Client) DeleteUsersWithContext(ctx context.Context, request *DeleteUser
     return
 }
 
+func NewDescribeDBCharsetsRequest() (request *DescribeDBCharsetsRequest) {
+    request = &DescribeDBCharsetsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    
+    request.Init().WithApiInfo("tdmysql", APIVersion, "DescribeDBCharsets")
+    
+    
+    return
+}
+
+func NewDescribeDBCharsetsResponse() (response *DescribeDBCharsetsResponse) {
+    response = &DescribeDBCharsetsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    } 
+    return
+
+}
+
+// DescribeDBCharsets
+// 本接口（DescribeDBCharsets）提供查询支持字符集功能
+//
+// 可能返回的错误码:
+//  INTERNALERROR_DATABASEACCESSERROR = "InternalError.DatabaseAccessError"
+//  INTERNALERROR_ROUTERNOTFOUND = "InternalError.RouterNotFound"
+//  OPERATIONDENIED = "OperationDenied"
+//  OPERATIONDENIED_DELETERUNNINGBACKUPTASKERR = "OperationDenied.DeleteRunningBackupTaskErr"
+//  RESOURCENOTFOUND_BIZRESOURCENOTFOUNDERROR = "ResourceNotFound.BizResourceNotFoundError"
+func (c *Client) DescribeDBCharsets(request *DescribeDBCharsetsRequest) (response *DescribeDBCharsetsResponse, err error) {
+    return c.DescribeDBCharsetsWithContext(context.Background(), request)
+}
+
+// DescribeDBCharsets
+// 本接口（DescribeDBCharsets）提供查询支持字符集功能
+//
+// 可能返回的错误码:
+//  INTERNALERROR_DATABASEACCESSERROR = "InternalError.DatabaseAccessError"
+//  INTERNALERROR_ROUTERNOTFOUND = "InternalError.RouterNotFound"
+//  OPERATIONDENIED = "OperationDenied"
+//  OPERATIONDENIED_DELETERUNNINGBACKUPTASKERR = "OperationDenied.DeleteRunningBackupTaskErr"
+//  RESOURCENOTFOUND_BIZRESOURCENOTFOUNDERROR = "ResourceNotFound.BizResourceNotFoundError"
+func (c *Client) DescribeDBCharsetsWithContext(ctx context.Context, request *DescribeDBCharsetsRequest) (response *DescribeDBCharsetsResponse, err error) {
+    if request == nil {
+        request = NewDescribeDBCharsetsRequest()
+    }
+    c.InitBaseRequest(&request.BaseRequest, "tdmysql", APIVersion, "DescribeDBCharsets")
+    
+    if c.GetCredential() == nil {
+        return nil, errors.New("DescribeDBCharsets require credential")
+    }
+
+    request.SetContext(ctx)
+    
+    response = NewDescribeDBCharsetsResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDescribeDBEnginesRequest() (request *DescribeDBEnginesRequest) {
     request = &DescribeDBEnginesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1449,6 +1507,122 @@ func (c *Client) DescribeFlowWithContext(ctx context.Context, request *DescribeF
     return
 }
 
+func NewDescribeFlowTypesRequest() (request *DescribeFlowTypesRequest) {
+    request = &DescribeFlowTypesRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    
+    request.Init().WithApiInfo("tdmysql", APIVersion, "DescribeFlowTypes")
+    
+    
+    return
+}
+
+func NewDescribeFlowTypesResponse() (response *DescribeFlowTypesResponse) {
+    response = &DescribeFlowTypesResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    } 
+    return
+
+}
+
+// DescribeFlowTypes
+// 本接口（DescribeFlowTypes）用于获取所有任务类型
+//
+// 可能返回的错误码:
+//  FAILEDOPERATION_DBQUERYINSTANCEERROR = "FailedOperation.DBQueryInstanceError"
+//  FAILEDOPERATION_QUERYDBERROR = "FailedOperation.QueryDBError"
+func (c *Client) DescribeFlowTypes(request *DescribeFlowTypesRequest) (response *DescribeFlowTypesResponse, err error) {
+    return c.DescribeFlowTypesWithContext(context.Background(), request)
+}
+
+// DescribeFlowTypes
+// 本接口（DescribeFlowTypes）用于获取所有任务类型
+//
+// 可能返回的错误码:
+//  FAILEDOPERATION_DBQUERYINSTANCEERROR = "FailedOperation.DBQueryInstanceError"
+//  FAILEDOPERATION_QUERYDBERROR = "FailedOperation.QueryDBError"
+func (c *Client) DescribeFlowTypesWithContext(ctx context.Context, request *DescribeFlowTypesRequest) (response *DescribeFlowTypesResponse, err error) {
+    if request == nil {
+        request = NewDescribeFlowTypesRequest()
+    }
+    c.InitBaseRequest(&request.BaseRequest, "tdmysql", APIVersion, "DescribeFlowTypes")
+    
+    if c.GetCredential() == nil {
+        return nil, errors.New("DescribeFlowTypes require credential")
+    }
+
+    request.SetContext(ctx)
+    
+    response = NewDescribeFlowTypesResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewDescribeInstanceDataReservedSpaceRequest() (request *DescribeInstanceDataReservedSpaceRequest) {
+    request = &DescribeInstanceDataReservedSpaceRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    
+    request.Init().WithApiInfo("tdmysql", APIVersion, "DescribeInstanceDataReservedSpace")
+    
+    
+    return
+}
+
+func NewDescribeInstanceDataReservedSpaceResponse() (response *DescribeInstanceDataReservedSpaceResponse) {
+    response = &DescribeInstanceDataReservedSpaceResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    } 
+    return
+
+}
+
+// DescribeInstanceDataReservedSpace
+// 本接口（DescribeInstanceDataReservedSpace）提供查询实例数据保留空间
+//
+// 可能返回的错误码:
+//  AUTHFAILURE_CAMAUTHERROR = "AuthFailure.CamAuthError"
+//  AUTHFAILURE_CHECKCAMAUTHERROR = "AuthFailure.CheckCamAuthError"
+//  AUTHFAILURE_UNAUTHORIZEDOPERATION = "AuthFailure.UnauthorizedOperation"
+//  FAILEDOPERATION_CHECKSUPPORTACTIONERROR = "FailedOperation.CheckSupportActionError"
+//  FAILEDOPERATION_DBQUERYINSTANCEERROR = "FailedOperation.DBQueryInstanceError"
+//  INVALIDPARAMETERVALUE_CHECKSPECERROR = "InvalidParameterValue.CheckSpecError"
+//  LIMITEXCEEDED_OUTOFSPECLIMITERROR = "LimitExceeded.OutOfSpecLimitError"
+//  OPERATIONDENIED_INSTANCESTATUSERROR = "OperationDenied.InstanceStatusError"
+func (c *Client) DescribeInstanceDataReservedSpace(request *DescribeInstanceDataReservedSpaceRequest) (response *DescribeInstanceDataReservedSpaceResponse, err error) {
+    return c.DescribeInstanceDataReservedSpaceWithContext(context.Background(), request)
+}
+
+// DescribeInstanceDataReservedSpace
+// 本接口（DescribeInstanceDataReservedSpace）提供查询实例数据保留空间
+//
+// 可能返回的错误码:
+//  AUTHFAILURE_CAMAUTHERROR = "AuthFailure.CamAuthError"
+//  AUTHFAILURE_CHECKCAMAUTHERROR = "AuthFailure.CheckCamAuthError"
+//  AUTHFAILURE_UNAUTHORIZEDOPERATION = "AuthFailure.UnauthorizedOperation"
+//  FAILEDOPERATION_CHECKSUPPORTACTIONERROR = "FailedOperation.CheckSupportActionError"
+//  FAILEDOPERATION_DBQUERYINSTANCEERROR = "FailedOperation.DBQueryInstanceError"
+//  INVALIDPARAMETERVALUE_CHECKSPECERROR = "InvalidParameterValue.CheckSpecError"
+//  LIMITEXCEEDED_OUTOFSPECLIMITERROR = "LimitExceeded.OutOfSpecLimitError"
+//  OPERATIONDENIED_INSTANCESTATUSERROR = "OperationDenied.InstanceStatusError"
+func (c *Client) DescribeInstanceDataReservedSpaceWithContext(ctx context.Context, request *DescribeInstanceDataReservedSpaceRequest) (response *DescribeInstanceDataReservedSpaceResponse, err error) {
+    if request == nil {
+        request = NewDescribeInstanceDataReservedSpaceRequest()
+    }
+    c.InitBaseRequest(&request.BaseRequest, "tdmysql", APIVersion, "DescribeInstanceDataReservedSpace")
+    
+    if c.GetCredential() == nil {
+        return nil, errors.New("DescribeInstanceDataReservedSpace require credential")
+    }
+
+    request.SetContext(ctx)
+    
+    response = NewDescribeInstanceDataReservedSpaceResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDescribeInstanceSSLStatusRequest() (request *DescribeInstanceSSLStatusRequest) {
     request = &DescribeInstanceSSLStatusRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1472,8 +1646,14 @@ func NewDescribeInstanceSSLStatusResponse() (response *DescribeInstanceSSLStatus
 // 本接口（DescribeInstanceSSLStatus）提供实例SSL状态查询
 //
 // 可能返回的错误码:
+//  AUTHFAILURE_CAMAUTHERROR = "AuthFailure.CamAuthError"
+//  AUTHFAILURE_CHECKCAMAUTHERROR = "AuthFailure.CheckCamAuthError"
+//  AUTHFAILURE_UNAUTHORIZEDOPERATION = "AuthFailure.UnauthorizedOperation"
+//  FAILEDOPERATION_CHECKSUPPORTACTIONERROR = "FailedOperation.CheckSupportActionError"
 //  FAILEDOPERATION_DBQUERYINSTANCEERROR = "FailedOperation.DBQueryInstanceError"
-//  FAILEDOPERATION_QUERYDBERROR = "FailedOperation.QueryDBError"
+//  INVALIDPARAMETERVALUE_CHECKSPECERROR = "InvalidParameterValue.CheckSpecError"
+//  LIMITEXCEEDED_OUTOFSPECLIMITERROR = "LimitExceeded.OutOfSpecLimitError"
+//  OPERATIONDENIED_INSTANCESTATUSERROR = "OperationDenied.InstanceStatusError"
 func (c *Client) DescribeInstanceSSLStatus(request *DescribeInstanceSSLStatusRequest) (response *DescribeInstanceSSLStatusResponse, err error) {
     return c.DescribeInstanceSSLStatusWithContext(context.Background(), request)
 }
@@ -1482,8 +1662,14 @@ func (c *Client) DescribeInstanceSSLStatus(request *DescribeInstanceSSLStatusReq
 // 本接口（DescribeInstanceSSLStatus）提供实例SSL状态查询
 //
 // 可能返回的错误码:
+//  AUTHFAILURE_CAMAUTHERROR = "AuthFailure.CamAuthError"
+//  AUTHFAILURE_CHECKCAMAUTHERROR = "AuthFailure.CheckCamAuthError"
+//  AUTHFAILURE_UNAUTHORIZEDOPERATION = "AuthFailure.UnauthorizedOperation"
+//  FAILEDOPERATION_CHECKSUPPORTACTIONERROR = "FailedOperation.CheckSupportActionError"
 //  FAILEDOPERATION_DBQUERYINSTANCEERROR = "FailedOperation.DBQueryInstanceError"
-//  FAILEDOPERATION_QUERYDBERROR = "FailedOperation.QueryDBError"
+//  INVALIDPARAMETERVALUE_CHECKSPECERROR = "InvalidParameterValue.CheckSpecError"
+//  LIMITEXCEEDED_OUTOFSPECLIMITERROR = "LimitExceeded.OutOfSpecLimitError"
+//  OPERATIONDENIED_INSTANCESTATUSERROR = "OperationDenied.InstanceStatusError"
 func (c *Client) DescribeInstanceSSLStatusWithContext(ctx context.Context, request *DescribeInstanceSSLStatusRequest) (response *DescribeInstanceSSLStatusResponse, err error) {
     if request == nil {
         request = NewDescribeInstanceSSLStatusRequest()
@@ -2461,6 +2647,70 @@ func (c *Client) ModifyDBSBackupSetCommentWithContext(ctx context.Context, reque
     return
 }
 
+func NewModifyInstanceDataReservedSpaceRequest() (request *ModifyInstanceDataReservedSpaceRequest) {
+    request = &ModifyInstanceDataReservedSpaceRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    
+    request.Init().WithApiInfo("tdmysql", APIVersion, "ModifyInstanceDataReservedSpace")
+    
+    
+    return
+}
+
+func NewModifyInstanceDataReservedSpaceResponse() (response *ModifyInstanceDataReservedSpaceResponse) {
+    response = &ModifyInstanceDataReservedSpaceResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    } 
+    return
+
+}
+
+// ModifyInstanceDataReservedSpace
+// 本接口（ModifyInstanceDataReservedSpace）提供修改实例数据保留空间
+//
+// 可能返回的错误码:
+//  AUTHFAILURE_CAMAUTHERROR = "AuthFailure.CamAuthError"
+//  AUTHFAILURE_CHECKCAMAUTHERROR = "AuthFailure.CheckCamAuthError"
+//  AUTHFAILURE_UNAUTHORIZEDOPERATION = "AuthFailure.UnauthorizedOperation"
+//  FAILEDOPERATION_CHECKSUPPORTACTIONERROR = "FailedOperation.CheckSupportActionError"
+//  FAILEDOPERATION_DBQUERYINSTANCEERROR = "FailedOperation.DBQueryInstanceError"
+//  INVALIDPARAMETERVALUE_CHECKSPECERROR = "InvalidParameterValue.CheckSpecError"
+//  LIMITEXCEEDED_OUTOFSPECLIMITERROR = "LimitExceeded.OutOfSpecLimitError"
+//  OPERATIONDENIED_INSTANCESTATUSERROR = "OperationDenied.InstanceStatusError"
+func (c *Client) ModifyInstanceDataReservedSpace(request *ModifyInstanceDataReservedSpaceRequest) (response *ModifyInstanceDataReservedSpaceResponse, err error) {
+    return c.ModifyInstanceDataReservedSpaceWithContext(context.Background(), request)
+}
+
+// ModifyInstanceDataReservedSpace
+// 本接口（ModifyInstanceDataReservedSpace）提供修改实例数据保留空间
+//
+// 可能返回的错误码:
+//  AUTHFAILURE_CAMAUTHERROR = "AuthFailure.CamAuthError"
+//  AUTHFAILURE_CHECKCAMAUTHERROR = "AuthFailure.CheckCamAuthError"
+//  AUTHFAILURE_UNAUTHORIZEDOPERATION = "AuthFailure.UnauthorizedOperation"
+//  FAILEDOPERATION_CHECKSUPPORTACTIONERROR = "FailedOperation.CheckSupportActionError"
+//  FAILEDOPERATION_DBQUERYINSTANCEERROR = "FailedOperation.DBQueryInstanceError"
+//  INVALIDPARAMETERVALUE_CHECKSPECERROR = "InvalidParameterValue.CheckSpecError"
+//  LIMITEXCEEDED_OUTOFSPECLIMITERROR = "LimitExceeded.OutOfSpecLimitError"
+//  OPERATIONDENIED_INSTANCESTATUSERROR = "OperationDenied.InstanceStatusError"
+func (c *Client) ModifyInstanceDataReservedSpaceWithContext(ctx context.Context, request *ModifyInstanceDataReservedSpaceRequest) (response *ModifyInstanceDataReservedSpaceResponse, err error) {
+    if request == nil {
+        request = NewModifyInstanceDataReservedSpaceRequest()
+    }
+    c.InitBaseRequest(&request.BaseRequest, "tdmysql", APIVersion, "ModifyInstanceDataReservedSpace")
+    
+    if c.GetCredential() == nil {
+        return nil, errors.New("ModifyInstanceDataReservedSpace require credential")
+    }
+
+    request.SetContext(ctx)
+    
+    response = NewModifyInstanceDataReservedSpaceResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewModifyInstanceNameRequest() (request *ModifyInstanceNameRequest) {
     request = &ModifyInstanceNameRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2791,6 +3041,56 @@ func (c *Client) ModifyUserPrivilegesWithContext(ctx context.Context, request *M
     return
 }
 
+func NewResetDbaAdminPrivilegesRequest() (request *ResetDbaAdminPrivilegesRequest) {
+    request = &ResetDbaAdminPrivilegesRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    
+    request.Init().WithApiInfo("tdmysql", APIVersion, "ResetDbaAdminPrivileges")
+    
+    
+    return
+}
+
+func NewResetDbaAdminPrivilegesResponse() (response *ResetDbaAdminPrivilegesResponse) {
+    response = &ResetDbaAdminPrivilegesResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    } 
+    return
+
+}
+
+// ResetDbaAdminPrivileges
+// 重置dbaadmin账号权限
+//
+// 可能返回的错误码:
+//  FAILEDOPERATION_UPDATEPRIVILEGESERROR = "FailedOperation.UpdatePrivilegesError"
+func (c *Client) ResetDbaAdminPrivileges(request *ResetDbaAdminPrivilegesRequest) (response *ResetDbaAdminPrivilegesResponse, err error) {
+    return c.ResetDbaAdminPrivilegesWithContext(context.Background(), request)
+}
+
+// ResetDbaAdminPrivileges
+// 重置dbaadmin账号权限
+//
+// 可能返回的错误码:
+//  FAILEDOPERATION_UPDATEPRIVILEGESERROR = "FailedOperation.UpdatePrivilegesError"
+func (c *Client) ResetDbaAdminPrivilegesWithContext(ctx context.Context, request *ResetDbaAdminPrivilegesRequest) (response *ResetDbaAdminPrivilegesResponse, err error) {
+    if request == nil {
+        request = NewResetDbaAdminPrivilegesRequest()
+    }
+    c.InitBaseRequest(&request.BaseRequest, "tdmysql", APIVersion, "ResetDbaAdminPrivileges")
+    
+    if c.GetCredential() == nil {
+        return nil, errors.New("ResetDbaAdminPrivileges require credential")
+    }
+
+    request.SetContext(ctx)
+    
+    response = NewResetDbaAdminPrivilegesResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewResetUsersPasswordRequest() (request *ResetUsersPasswordRequest) {
     request = &ResetUsersPasswordRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2814,9 +3114,6 @@ func NewResetUsersPasswordResponse() (response *ResetUsersPasswordResponse) {
 // 本接口（ResetUsersPassword）用于批量重置用户密码
 //
 // 可能返回的错误码:
-//  FAILEDOPERATION_DBCOUNTLIMITERROR = "FailedOperation.DbCountLimitError"
-//  FAILEDOPERATION_QUERYDBERROR = "FailedOperation.QueryDBError"
-//  FAILEDOPERATION_TABLECOUNTLIMITERROR = "FailedOperation.TableCountLimitError"
 //  FAILEDOPERATION_UPDATEPRIVILEGESERROR = "FailedOperation.UpdatePrivilegesError"
 func (c *Client) ResetUsersPassword(request *ResetUsersPasswordRequest) (response *ResetUsersPasswordResponse, err error) {
     return c.ResetUsersPasswordWithContext(context.Background(), request)
@@ -2826,9 +3123,6 @@ func (c *Client) ResetUsersPassword(request *ResetUsersPasswordRequest) (respons
 // 本接口（ResetUsersPassword）用于批量重置用户密码
 //
 // 可能返回的错误码:
-//  FAILEDOPERATION_DBCOUNTLIMITERROR = "FailedOperation.DbCountLimitError"
-//  FAILEDOPERATION_QUERYDBERROR = "FailedOperation.QueryDBError"
-//  FAILEDOPERATION_TABLECOUNTLIMITERROR = "FailedOperation.TableCountLimitError"
 //  FAILEDOPERATION_UPDATEPRIVILEGESERROR = "FailedOperation.UpdatePrivilegesError"
 func (c *Client) ResetUsersPasswordWithContext(ctx context.Context, request *ResetUsersPasswordRequest) (response *ResetUsersPasswordResponse, err error) {
     if request == nil {
